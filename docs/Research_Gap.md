@@ -26,4 +26,4 @@ Possible Improvement: Position the proposed policy-intelligence framework as the
 
 Research Gap: No adaptation of the AWS Well-Architected Framework exists specifically for multi-agency smart-city governance, where policy ownership is distributed across departments rather than held by a single organisation.
 
-Possible Improvement: Extend the Well-Architected Framework's five pillars with a sixth, smart-city-specific pillar — "Policy Governance" — covering cross-department policy ownership, audit, and citizen-data compliance, forming the structural backbone of the proposed#  framework.
+Possible Improvement: Extend the Well-Architected Framework's five pillars with a sixth, smart-city-specific pillar — "Policy Governance" — covering cross-department policy ownership, audit, and citizen-data compliance, forming the structural backbone of the proposed framework.
