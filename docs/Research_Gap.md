@@ -18,6 +18,26 @@ Research Gap: Detection and governance response are treated as two separate prob
 
 Research Gap: No worked example shows how the "governance" pillar gets translated into deployable cloud-policy artefacts such as IAM roles, tagging standards, or audit rules.
 
+# Paper 6: Digital Twin: A Driver of Sustainable Smart Cities? Evidence From a Bibliometric Analysis
+
+Research Gap: The bibliometric map reveals a thin cluster connecting digital twins to concrete governance or policy-enforcement mechanisms, highlighting an under-researched intersection.
+
+# Paper 7: AI-Cloud for Next Generation Smart Cities and Smarter Infrastructure
+
+Research Gap: Model governance—including approval workflows, compliance checks, deployment authorization, and rollback mechanisms—is left completely undefined.
+
+# Paper 8: Quantum ML, Generative AI, and Information Fusion for Cloud Security in IoT-Enabled Sustainable Smart Cities
+
+Research Gap: No concrete architecture translates information-fusion outputs into automated governance decisions or enforceable cloud policies.
+
+# Paper 9: Experimental Evaluation of Serverless Data Layer Architectures for Smart City Internet of Things Applications
+
+Research Gap: No equivalent AWS-native study compares serverless data-layer architectures while incorporating governance overhead, including access control, tagging, auditing, and compliance costs.
+
+# Paper 10: Strategic Management of Urban Services Using Artificial Intelligence in the Development of Sustainable Smart Cities — Managerial and Legal Challenges
+
+Research Gap: There is a clear gap between legal and strategic governance requirements and their implementation as machine-readable, enforceable cloud policies.
+
 # Paper 11: Advanced Data Control Methods for Data-Driven Modeling: Techniques, Challenges, and Future Directions
 
 Research Gap: No study evaluates which control architecture is better suited specifically for enforcing policy across many independent smart-city digital services at once.
