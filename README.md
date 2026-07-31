@@ -56,21 +56,25 @@ Figure 2: Complete System Architecture of Intelligent Cloud Governance Framework
 
 - Amazon Web Services (AWS)
 
-## AWS Services
+# AWS Services Used
 
-- AWS IoT Core
-- Amazon Kinesis Data Streams
-- AWS Lambda
-- AWS IAM
-- AWS Organizations
-- AWS Config
-- AWS CloudTrail
-- Amazon DynamoDB
-- Amazon S3
-- Amazon SNS
-- Amazon CloudWatch
-- AWS Security Hub
-- Amazon QuickSight
+The framework is built natively on AWS, mapping each layer of the proposed architecture (Fig. 1 and Fig. 2) to a specific managed AWS service. This keeps governance logic *"in the cloud, of the cloud"* rather than bolted on afterward, and gives every automated decision a traceable, auditable service-level origin.
+
+| AWS Service | Architecture Layer | Role in the Framework |
+|-------------|--------------------|-----------------------|
+| **AWS IoT Core** | Data Ingestion | Ingests real-time telemetry from transportation, energy-grid, and public-safety IoT devices. |
+| **Amazon Kinesis Data Streams** | Data Ingestion | Streams and buffers CloudTrail, Config, and IoT events into a unified, ordered event pipeline. |
+| **AWS IAM (including Permission Boundaries)** | Authentication & Governance | Implements role-based access control and department-level permission boundaries. |
+| **AWS Organizations (Service Control Policies)** | Authentication & Governance | Enforces city-wide governance guardrails across multiple AWS accounts using Service Control Policies (SCPs). |
+| **AWS Lambda** | Processing & AI Decision | Hosts the Policy Intelligence Engine and executes automated governance decisions and remediation actions. |
+| **Amazon DynamoDB** | Storage | Stores governance policies, department rules, and real-time enforcement status. |
+| **Amazon S3** | Storage | Stores raw CloudTrail logs, processed events, datasets, and historical audit records. |
+| **Amazon SNS** | Notification | Sends governance alerts and notifications to city administrators, department heads, and security teams. |
+| **Amazon CloudWatch** | Monitoring | Collects operational metrics, application logs, and monitors overall system performance. |
+| **AWS Security Hub** | Monitoring | Aggregates security findings and continuously monitors compliance across AWS services. |
+| **AWS CloudTrail** | Monitoring / Signal Source | Records every AWS API call and provides the primary audit trail and governance event source. |
+| **AWS Config** | Monitoring / Signal Source | Detects configuration drift and provides continuous compliance-state evaluations. |
+| **Amazon QuickSight** | Visualization | Provides centralized governance dashboards including compliance status, security alerts, cost analytics, policy violations, and historical trends. |
 
 ## AI & Analytics
 
@@ -86,33 +90,19 @@ Figure 2: Complete System Architecture of Intelligent Cloud Governance Framework
 
 # Dataset Details
 
-| Field | Details |
-|--------|---------|
-| **Dataset Name** | AWS CloudTrail Logs Dataset (flaws.cloud) |
-| **Source** | Scott Piper / Summit Route (Public AWS Security Research Dataset) |
-| **Dataset Size** | Approximately 240 MB |
-| **Number of Records** | 1,939,207 CloudTrail Events |
-| **Data Format** | Semi-Structured JSON |
-| **Features** | ~20 CloudTrail Attributes (eventTime, eventSource, eventName, awsRegion, sourceIPAddress, userIdentity, etc.) |
-| **Purpose** | Train and evaluate AI models for anomaly detection and policy intelligence |
-| **Preprocessing** | JSON flattening, feature engineering, categorical encoding, duplicate removal, timestamp extraction |
-| **License** | Publicly released for academic and security research |
+Phase 1 uses a real, publicly released AWS CloudTrail dataset to develop and evaluate the security-related detection component of the policy-intelligence engine—the same event source referenced in the review of Paper 12. Its details are summarized below.
 
-# Project Highlights
+| Field | Detail |
+|--------|--------|
+| **Dataset Name** | AWS CloudTrail Logs Dataset (from flaws.cloud) |
+| **Source** | Scott Piper / Summit Route — publicly released for AWS security research; also mirrored on Kaggle |
+| **URL** | https://summitroute.com/downloads/flaws_cloudtrail_logs.tar (mirror: https://www.kaggle.com/datasets/nobukim/aws-cloudtrails-dataset-from-flaws-cloud) |
+| **Size** | Approximately **240 MB** compressed, distributed as gzipped JSON chunks of **100,000 events** each |
+| **Number of Records** | **1,939,207** CloudTrail events spanning **2017-02-12** to **2020-10-07** |
+| **Number of Features** | Approximately **20** top-level CloudTrail fields (*eventTime, eventSource, eventName, awsRegion, sourceIPAddress, userAgent, errorCode, requestParameters, responseElements, resources*, etc.), several of which contain nested JSON objects such as **userIdentity** and **sessionContext** |
+| **Data Type** | Semi-structured JSON event logs containing categorical, timestamp, and nested text-based fields |
+| **License / Usage Terms** | Released publicly by the author for security research. IP addresses, account IDs, and access keys are anonymized. No formal open-source license is attached; therefore, the dataset is used only for non-commercial academic research. |
+| **Purpose of Using the Dataset** | Train and evaluate the classifier that detects anomalous authentication, privilege-escalation, and reconnaissance patterns, serving as the security-domain input to the policy-intelligence engine. |
+| **Preprocessing Required** | Flatten nested JSON fields (*userIdentity*, *requestParameters*); encode categorical attributes (*eventName*, *eventSource*, *awsRegion*); derive temporal features from *eventTime*; remove duplicate API calls; and generate malicious/benign labels using known **flaws.cloud** attack levels and associated IP/user-agent indicators. |
 
-- AI-powered Policy Intelligence Engine
-- Automated Cloud Governance
-- Multi-level Policy Enforcement
-- Explainable AI Decisions
-- Real-time Monitoring
-- Serverless AWS Architecture
-- Smart City Governance Automation
-
-# Future Enhancements
-
-- Multi-cloud governance support (AWS, Azure, GCP)
-- Reinforcement Learning-based policy optimization
-- Digital Twin integration
-- Predictive governance analytics
-- Large Language Model (LLM)-assisted policy recommendations
-- Federated governance across multiple smart cities
+AWS Config findings and IoT telemetry—the other two governance signal sources in the proposed framework—do not currently have an equivalent publicly available combined dataset. Therefore, **Phase 2** will generate a synthetic AWS Config and IoT telemetry dataset based on real AWS Config rule outputs and representative smart-city sensor schemas, enabling end-to-end fusion of all three governance signals.
