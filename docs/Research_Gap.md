@@ -1,3 +1,23 @@
+# Paper 1: The Role of AI and Big Data Analytics in Smart Cities
+
+Research Gap: There is no built-in governance layer deciding which analytics outputs are actually allowed to trigger automated actions across departments or services.
+
+# Paper 2: Cloud Computing in Smart Cities: Privacy, Ethical and Social Issues
+
+Research Gap: No concrete governance model exists that translates the identified privacy, ethical, and social risks into automatically enforceable cloud policies.
+
+# Paper 3: Smart Cities Beyond Methodological Cityism
+
+Research Gap: No technical bridge exists between high-level governance intent (as described here) and the low-level access and resource rules a cloud platform actually executes.
+
+# Paper 4: Cyber Physical Security Framework for Smart Cities Using AI and Quantum Encryption
+
+Research Gap: Detection and governance response are treated as two separate problems; there is no policy-intelligence layer connecting an AI-flagged anomaly to an automated, auditable governance action.
+
+# Paper 5: Digital Transformation of Energy Systems: Technologies, Data, Governance and Cyber Security
+
+Research Gap: No worked example shows how the "governance" pillar gets translated into deployable cloud-policy artefacts such as IAM roles, tagging standards, or audit rules.
+
 # Paper 11: Advanced Data Control Methods for Data-Driven Modeling: Techniques, Challenges, and Future Directions
 
 Research Gap: No study evaluates which control architecture is better suited specifically for enforcing policy across many independent smart-city digital services at once.
