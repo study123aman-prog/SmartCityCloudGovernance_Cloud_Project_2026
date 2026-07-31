@@ -27,12 +27,12 @@ Aditya Jain 24BIT0333
 The proposed framework follows an event-driven, cloud-native architecture built entirely on AWS.
 Diagram 1 — AWS Cloud Architecture
 Figure 1 illustrates the AWS cloud deployment of the proposed framework. Data from smart city domains such as transportation, energy, public safety, and government services, along with AWS CloudTrail, AWS Config, and IoT telemetry, is collected through AWS IoT Core and Amazon Kinesis. The Policy Intelligence Engine, implemented using AWS Lambda, evaluates governance policies and generates automated decisions. AWS IAM and AWS Organizations provide secure access control, while Amazon S3 and DynamoDB store governance data. Monitoring, notifications, and dashboards are handled through CloudWatch, Security Hub, SNS, and QuickSight, ensuring real-time, secure, and scalable cloud governance.
-![alt text](image.png)
+![alt text](AWS Cloud Architecture.png)
 Figure 1: AWS Cloud Architecture — Intelligent Cloud Governance Framework for Smart City Digital Services Using Policy Intelligence
 
 Diagram 2 — Complete System Architecture
 Figure 2 presents the end-to-end workflow of the proposed system. Governance signals from CloudTrail, Config, and IoT devices are collected and preprocessed before being analyzed by the AI-based Policy Intelligence Engine. The engine evaluates events against multi-level governance policies and generates decisions such as Allow, Alert, Auto-Remediation, or Governance Recommendation. These decisions are enforced through IAM policies, Service Control Policies, Lambda automation, and configuration updates. All actions are recorded, continuously monitored, and displayed on governance dashboards, providing transparent, auditable, and automated policy management for smart city administrators.
-![alt text](image-1.png) 
+![alt text](Complete System Architecture.png) 
 Figure 2: Complete System Architecture of Intelligent Cloud Governance Framework for Smart City Digital Services Using Policy Intelligence
 
 ### Workflow
