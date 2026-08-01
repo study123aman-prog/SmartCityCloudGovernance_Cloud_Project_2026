@@ -6,4 +6,12 @@
 
 3. Reduce manual governance-review effort by automating at least 70% of routine compliance and audit checks that currently require manual verification.
 
+<<<<<<< HEAD
 4. Deliver interpretable, plain-language policy decisions and alerts for non-technical municipal stakeholders, with near real-time (sub-second) policy-evaluation latency.
+=======
+4. Deliver interpretable, plain-language policy decisions and alerts for non-technical municipal stakeholders, with near real-time (sub-second) policy-evaluation latency.
+
+5. Implement a secure, role-based, multi-tier policy hierarchy (national/city/department) that mirrors real administrative structure, ensuring data privacy and consistent compliance across independently managed city agencies.
+
+6. Provide a centralized governance dashboard (Amazon QuickSight) visualizing policy compliance, audit trails, and enforcement actions across all connected services, giving city administrators a single, transparent view of governance posture.
+>>>>>>> origin/develop
