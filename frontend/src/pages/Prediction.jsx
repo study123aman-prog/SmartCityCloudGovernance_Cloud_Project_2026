@@ -1,0 +1,12 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import PredictionForm from "../components/PredictionForm";
+import RiskBadge from "../components/RiskBadge";
+import { api, getApiError } from "../services/api";
+
+export default function Prediction() {
+  const [result, setResult] = useState(null); const [error, setError] = useState(""); const [submitting, setSubmitting] = useState(false);
+  async function submit(inputs) { setSubmitting(true); setError(""); setResult(null); try { const { data } = await api.post("/predictions", inputs); setResult(data); } catch (requestError) { setError(getApiError(requestError, "Prediction could not be completed")); } finally { setSubmitting(false); } }
+  async function simulate() { const { data } = await api.get("/environment/simulated"); return data.values; }
+  return <div className="mx-auto max-w-7xl px-5 py-10 lg:px-8"><div className="max-w-2xl"><p className="text-sm font-bold uppercase tracking-[.2em] text-ember">Prediction workspace</p><h1 className="mt-3 font-display text-5xl font-bold">Read the field.</h1><p className="mt-4 leading-7 text-ink/60">Enter the six values expected by the existing model. Results are stored in your history.</p></div><div className="mt-10 grid gap-8 lg:grid-cols-[1fr_.75fr]"><section className="rounded-[1.5rem] bg-white p-6 shadow-sm sm:p-8"><h2 className="mb-6 font-display text-2xl font-bold">Environmental inputs</h2><PredictionForm onSubmit={submit} onSimulate={simulate} submitting={submitting} /></section><section className="rounded-[1.5rem] bg-ink p-6 text-white sm:p-8"><p className="text-sm font-bold uppercase tracking-[.2em] text-white/45">Latest result</p>{result ? <div className="mt-12"><RiskBadge prediction={result.prediction} /><p className="mt-6 font-display text-7xl font-bold">{Math.round(result.probability * 100)}<span className="text-3xl text-white/50">%</span></p><p className="mt-2 text-white/60">Probability of model class 1</p><p className="mt-8 text-sm text-white/60">Model version {result.modelVersion}</p><Link to="/history" className="mt-8 inline-block font-bold text-ember hover:text-white">View history →</Link></div> : <p className="mt-12 max-w-xs text-2xl leading-9 text-white/70">Your next result will appear here. The model reports numeric classes, not certified emergency levels.</p>}{error && <p className="mt-8 rounded-xl bg-ember/20 px-4 py-3 text-sm text-orange-100">{error}</p>}</section></div></div>;
+}

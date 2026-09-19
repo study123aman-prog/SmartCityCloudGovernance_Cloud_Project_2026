@@ -1,0 +1,57 @@
+{
+  "model_type": "RandomForest",
+  "dataset_samples": 20000,
+  "train_samples": 16000,
+  "test_samples": 4000,
+  "accuracy": 0.9998,
+  "precision": 1.0,
+  "recall": 0.9941,
+  "f1_score": 0.997,
+  "roc_auc": 1.0,
+  "confusion_matrix": [
+    [
+      3831,
+      0
+    ],
+    [
+      1,
+      168
+    ]
+  ],
+  "feature_names": [
+    "temperature",
+    "humidity",
+    "smoke_index",
+    "electrical_load",
+    "occupancy",
+    "wind_speed",
+    "flammability",
+    "zone_electrical",
+    "zone_server_room",
+    "zone_kitchen",
+    "zone_lab",
+    "zone_classroom",
+    "zone_corridor",
+    "zone_storage",
+    "zone_office",
+    "zone_exit"
+  ],
+  "feature_importances": {
+    "temperature": 0.3084,
+    "humidity": 0.1724,
+    "smoke_index": 0.4342,
+    "electrical_load": 0.0777,
+    "occupancy": 0.0011,
+    "wind_speed": 0.0022,
+    "flammability": 0.002,
+    "zone_electrical": 0.0003,
+    "zone_server_room": 0.0001,
+    "zone_kitchen": 0.0003,
+    "zone_lab": 0.0003,
+    "zone_classroom": 0.0001,
+    "zone_corridor": 0.0001,
+    "zone_storage": 0.0004,
+    "zone_office": 0.0001,
+    "zone_exit": 0.0003
+  }
+}

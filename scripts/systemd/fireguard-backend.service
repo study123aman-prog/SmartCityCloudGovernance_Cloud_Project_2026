@@ -1,0 +1,18 @@
+[Unit]
+Description=FireGuard Node.js Express Backend
+After=network.target fireguard-ml.service
+Wants=fireguard-ml.service
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/opt/fireguard/backend
+EnvironmentFile=/opt/fireguard/backend/.env
+ExecStart=/usr/bin/node src/server.js
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
