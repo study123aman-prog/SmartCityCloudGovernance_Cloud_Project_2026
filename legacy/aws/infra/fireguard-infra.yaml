@@ -1,0 +1,257 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'FireGuard Infrastructure: Private S3, CloudFront OAC, Least-Privilege IAM Roles, SNS Topic, and Security Group'
+
+Parameters:
+  EnvironmentName:
+    Type: String
+    Default: production
+    Description: Environment name prefix (e.g., production, staging)
+
+  AdministratorCIDR:
+    Type: String
+    Default: 0.0.0.0/0
+    Description: Allowed CIDR block for emergency SSH access (port 22). Restrict to your administrator IP.
+
+  InstanceType:
+    Type: String
+    Default: t2.micro
+    AllowedValues:
+      - t2.micro
+      - t3.micro
+    Description: EC2 instance type. t2.micro and t3.micro are eligible for the 12-month AWS Free Tier (750 hrs/month).
+
+Resources:
+  # ===========================================================================
+  # 1. FRONTEND HOSTING: S3 + CloudFront with Origin Access Control (OAC)
+  # ===========================================================================
+  FrontendBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub 'fireguard-frontend-${AWS::AccountId}-${AWS::Region}-${EnvironmentName}'
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+
+  FrontendOAC:
+    Type: AWS::CloudFront::OriginAccessControl
+    Properties:
+      OriginAccessControlConfig:
+        Name: !Sub 'fireguard-oac-${EnvironmentName}'
+        OriginAccessControlOriginType: s3
+        SigningBehavior: always
+        SigningProtocol: sigv4
+
+  FrontendDistribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Enabled: true
+        Comment: !Sub 'FireGuard Frontend CDN (${EnvironmentName})'
+        DefaultRootObject: index.html
+        Origins:
+          - Id: FrontendS3Origin
+            DomainName: !GetAtt FrontendBucket.RegionalDomainName
+            OriginAccessControlId: !GetAtt FrontendOAC.Id
+            S3OriginConfig: {}
+        DefaultCacheBehavior:
+          TargetOriginId: FrontendS3Origin
+          ViewerProtocolPolicy: redirect-to-https
+          AllowedMethods: [GET, HEAD, OPTIONS]
+          CachedMethods: [GET, HEAD]
+          Compress: true
+          ForwardedValues:
+            QueryString: false
+            Cookies:
+              Forward: none
+        # SPA Routing: Rewrite 403 and 404 to /index.html with HTTP 200
+        CustomErrorResponses:
+          - ErrorCode: 403
+            ResponseCode: 200
+            ResponsePagePath: /index.html
+            ErrorCachingMinTTL: 10
+          - ErrorCode: 404
+            ResponseCode: 200
+            ResponsePagePath: /index.html
+            ErrorCachingMinTTL: 10
+
+  FrontendBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref FrontendBucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: AllowCloudFrontServicePrincipalReadOnly
+            Effect: Allow
+            Principal:
+              Service: cloudfront.amazonaws.com
+            Action: s3:GetObject
+            Resource: !Sub '${FrontendBucket.Arn}/*'
+            Condition:
+              StringEquals:
+                AWS:SourceArn: !Sub 'arn:aws:cloudfront::${AWS::AccountId}:distribution/${FrontendDistribution.Id}'
+
+  # ===========================================================================
+  # 2. STORAGE: Private S3 Bucket for User Uploads and Lambda Reports
+  # ===========================================================================
+  StorageBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub 'fireguard-storage-${AWS::AccountId}-${AWS::Region}-${EnvironmentName}'
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+
+  # ===========================================================================
+  # 3. NOTIFICATIONS: Amazon SNS Topic
+  # ===========================================================================
+  AlertTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: !Sub 'fireguard-risk-alerts-${EnvironmentName}'
+      DisplayName: FireGuard Wildfire Risk Alert Topic
+
+  # ===========================================================================
+  # 4. IAM ROLES & INSTANCE PROFILES (Least Privilege)
+  # ===========================================================================
+  EC2InstanceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub 'fireguard-ec2-role-${EnvironmentName}'
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ec2.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: FireGuardEC2WorkloadPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              # S3 permissions scoped to the storage bucket
+              - Effect: Allow
+                Action:
+                  - s3:PutObject
+                  - s3:GetObject
+                  - s3:ListBucket
+                Resource:
+                  - !GetAtt StorageBucket.Arn
+                  - !Sub '${StorageBucket.Arn}/*'
+              # SNS publish permission scoped to the alert topic
+              - Effect: Allow
+                Action:
+                  - sns:Publish
+                Resource: !Ref AlertTopic
+              # CloudWatch logs for process supervision
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                  - logs:DescribeLogStreams
+                Resource: 'arn:aws:logs:*:*:*'
+
+  EC2InstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      InstanceProfileName: !Sub 'fireguard-ec2-profile-${EnvironmentName}'
+      Roles:
+        - !Ref EC2InstanceRole
+
+  LambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub 'fireguard-lambda-role-${EnvironmentName}'
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyName: FireGuardLambdaReportStoragePolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              # Scoped write access strictly for generated reports
+              - Effect: Allow
+                Action:
+                  - s3:PutObject
+                Resource: !Sub '${StorageBucket.Arn}/reports/*'
+
+  # ===========================================================================
+  # 5. NETWORKING & SECURITY: EC2 Security Group
+  # ===========================================================================
+  EC2SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security group for FireGuard backend & reverse proxy
+      GroupName: !Sub 'fireguard-ec2-sg-${EnvironmentName}'
+      SecurityGroupIngress:
+        # Public HTTP/HTTPS for Nginx reverse proxy
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+          Description: Allow public HTTP traffic
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: 0.0.0.0/0
+          Description: Allow public HTTPS traffic
+        # Restricted SSH administration
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: !Ref AdministratorCIDR
+          Description: Administrator SSH access
+
+Outputs:
+  FrontendBucketName:
+    Description: S3 bucket name for hosting frontend build artifacts
+    Value: !Ref FrontendBucket
+
+  CloudFrontDomainName:
+    Description: Public HTTPS domain name for the frontend CloudFront distribution
+    Value: !GetAtt FrontendDistribution.DomainName
+
+  CloudFrontDistributionId:
+    Description: CloudFront Distribution ID for cache invalidations
+    Value: !Ref FrontendDistribution.Id
+
+  StorageBucketName:
+    Description: S3 bucket name for reports and private uploads
+    Value: !Ref StorageBucket
+
+  AlertTopicArn:
+    Description: ARN of the SNS topic for risk notifications
+    Value: !Ref AlertTopic
+
+  EC2InstanceProfileName:
+    Description: IAM Instance Profile name to attach to the EC2 instance
+    Value: !Ref EC2InstanceProfile
+
+  EC2SecurityGroupId:
+    Description: Security Group ID for the EC2 instance
+    Value: !Ref EC2SecurityGroup
+
+  LambdaExecutionRoleArn:
+    Description: IAM Role ARN for deploying the report generator Lambda
+    Value: !GetAtt LambdaExecutionRole.Arn

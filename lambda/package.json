@@ -1,0 +1,13 @@
+{
+  "name": "fireguard-report-lambda",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "scripts": {
+    "test": "node test-report.mjs",
+    "test:local": "node test-report.mjs"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.782.0"
+  }
+}

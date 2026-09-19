@@ -1,1040 +1,278 @@
-# Intelligent Cloud-Based Fire-Safety Compliance Governance with Remediation-Attributed Evidence Verification
+# FireGuard AI
 
-> A cloud-native research project for verifying that reported fire-safety remediation actually restored the required physical condition of the correct safety asset.
+## Multi-Source Fire Hazard Prediction, Risk Propagation & Emergency Response System
 
-## Project title
+**FireGuard AI** is an advanced, local-first dual-domain emergency intelligence platform. It fuses **wildland/forest fire risk** (Canadian Fire Weather Index & meteorological dynamics) with **structural/building fire hazards** (optical smoke obscuration, thermal loads, electrical strain, and flammability).
 
-**Intelligent Cloud-Based Fire-Safety Compliance Governance with Remediation-Attributed Evidence Verification**
-
-## Technical invention
-
-**System and Method for Remediation-Attributed Fire-Safety Compliance Verification Using Regulation-Conditioned Physical Evidence**
-
-## Short name
-
-**RA-CV — Remediation-Attributed Compliance Verification**
-
----
-
-## 1. Project Overview
-
-Modern fire-safety systems are increasingly capable of detecting hazards, predicting risk, monitoring equipment, and checking compliance. The difficult downstream problem is what happens **after a violation is detected and someone claims that it has been fixed**.
-
-A system may receive a photograph, inspection form, sensor reading, maintenance certificate, or other evidence and then mark the violation as resolved. If that evidence is wrong, incomplete, stale, contradictory, or associated with the wrong physical asset, the digital compliance record can become more optimistic than the actual building.
-
-This project investigates a stronger approach:
-
-> **Do not allow a fire-safety violation to become `VERIFIED_RESOLVED` merely because evidence exists. Require evidence that can establish that the required remediation restored the required physical condition of the correct safety asset.**
-
-The project combines the strongest parts of three earlier ideas:
-
-1. **Intelligent Cloud Governance Framework** — policy intelligence, continuous compliance state, corrective action, escalation, and auditability.
-2. **Evidence-Sufficiency-Aware Adaptive Enforcement Engine** — violation-specific evidence sufficiency and evidence-aware decisions.
-3. **Active Compliance Verification** — when proof is incomplete, obtain targeted additional verification instead of blindly closing or escalating.
-
-The combined invention centre is **remediation attribution**.
+The platform features:
+- Two dedicated Machine Learning inference engines (Random Forest models trained with scikit-learn).
+- Deterministic rule-based baseline engines for side-by-side empirical comparison.
+- A multi-source **Risk Fusion Engine** combining environmental, facility, and exposure vectors.
+- Graph-based algorithmic fire hazard propagation simulation.
+- Dynamic safest-route evacuation pathfinding (Dijkstra algorithm avoiding compromised zones).
+- Interactive What-If fire progression simulation with time-step playback.
+- A modern Command Center web interface built with React, Vite, TailwindCSS, and Leaflet GIS.
+- Completely decoupled architecture: **100% operational locally without AWS credentials or cloud infrastructure**.
 
 ---
 
-## 2. The Problem
+## Architecture Overview
 
-A fire-safety compliance system can fail even when its detection model is accurate.
-
-Consider a fire door `FD-17` that is found to be defective.
-
-The owner reports:
-
-> “FD-17 has been repaired.”
-
-The owner uploads a photograph.
-
-A simplistic workflow could be:
-
-```text
-Violation detected
-        ↓
-Evidence uploaded
-        ↓
-Evidence appears acceptable
-        ↓
-Violation marked RESOLVED
 ```
-
-But the following could all be true:
-
-- the photograph actually shows `FD-18`;
-- the photograph was taken before the repair;
-- the photograph shows a closed door but does not prove functional closing/latching;
-- another obstruction is outside the visible field of view;
-- a sensor contradicts the submitted evidence;
-- the evidence cannot establish that the recorded remediation caused the compliant condition.
-
-The result is a dangerous state:
-
-```text
-PHYSICAL WORLD                     DIGITAL WORLD
-
-Asset still unsafe            ≠    “Verified Resolved”
-```
-
-The project targets this **false-compliance / false-resolution problem**.
-
----
-
-## 3. Central Research Question
-
-> **How can a cloud-based compliance system transform a fire-safety requirement into a machine-checkable remediation proof and prevent compliance closure when the available evidence cannot reliably establish that the prescribed remediation restored the required physical state of the correct safety asset?**
-
----
-
-## 4. Core Invention
-
-The proposed mechanism maintains a relationship between:
-
-```text
-Regulatory requirement
-        ↓
-Specific physical safety asset
-        ↓
-Observed non-compliant state
-        ↓
-Recorded remediation action
-        ↓
-Expected physical effect
-        ↓
-Physical evidence
-        ↓
-Identity / time / consistency checks
-        ↓
-Remediation-attribution decision
-        ↓
-Compliance-state transition
-```
-
-The important question is not merely:
-
-> “Is the asset safe now?”
-
-It is:
-
-> **“Can the observed compliant state be sufficiently attributed to the remediation of the specific recorded violation on the correct physical asset?”**
-
----
-
-## 5. What “Regulation-Conditioned” Means
-
-Each applicable safety requirement determines what must be proven.
-
-Example:
-
-> Emergency exit must remain unobstructed.
-
-The system can derive a proof specification such as:
-
-```text
-Asset = Exit E01
-
-Required proof conditions
--------------------------
-P1: correct exit identified
-P2: observation is current
-P3: relevant exit zone is visible
-P4: exit is unobstructed
-
-Closure condition
------------------
-P1 + P2 + P3 + P4 satisfied
-```
-
-A different requirement creates different proof conditions.
-
-For a fire door:
-
-```text
-P1: correct door identified
-P2: observation occurs after remediation
-P3: door reaches closed state
-P4: latch engages
-```
-
-For a fire extinguisher certification:
-
-```text
-P1: correct extinguisher identity
-P2: certificate belongs to the asset
-P3: certificate is current
-P4: inspection/maintenance record is current
-```
-
-The project does **not** claim regulation-to-rule extraction itself as novel; this is an established research area.
-
----
-
-## 6. Compliance Proof Contract
-
-The core system object is a **Compliance Proof Contract (CPC)**.
-
-A CPC can contain:
-
-```text
-- rule / requirement identifier
-- building identifier
-- physical asset identifier
-- non-compliant state
-- remediation action
-- expected compliant state
-- expected physical effect
-- acceptable evidence modalities
-- evidence freshness constraints
-- identity constraints
-- spatial constraints
-- temporal constraints
-- contradiction conditions
-- closure conditions
-- failure conditions
-```
-
-Example:
-
-```yaml
-proof_contract_id: PC-EXIT-017
-rule_id: EXIT-001
-asset_id: E01
-unsafe_state: OBSTRUCTED
-required_state: CLEAR
-required_predicates:
-  - correct_asset
-  - current_observation
-  - full_exit_zone_visible
-  - no_obstruction
-closure:
-  all_required_predicates: true
-```
-
-This is a **design representation for the prototype**, not a claim that “proof contracts” as a term are themselves novel.
-
----
-
-## 7. Evidence Sufficiency
-
-Evidence is evaluated against the proof contract instead of treated as a binary upload.
-
-Example:
-
-```text
-Evidence: Photo P-102
-
-Correct asset       = PASS
-Freshness           = PASS
-Spatial coverage    = FAIL
-No obstruction      = UNKNOWN
-
-Proof state = INCOMPLETE
-```
-
-The system records the **proof deficit** rather than only producing a single confidence number.
-
-This is stronger for research because it gives an explanation of **what remains unproven**.
-
----
-
-## 8. Remediation Attribution
-
-This is the main research/invention hypothesis.
-
-The system attempts to establish a chain:
-
-```text
-Violation V-102
-      ↓
-Asset E01
-      ↓
-Remediation R-102
-      ↓
-Expected effect = obstruction removed
-      ↓
-Evidence P-102
-      ↓
-Evidence corresponds to E01
-      ↓
-Evidence occurs after R-102
-      ↓
-Observed state = CLEAR
-      ↓
-Attribution established
-```
-
-If the evidence instead corresponds to another asset:
-
-```text
-Required asset = E01
-Observed asset = E02
-```
-
-then the system records:
-
-```text
-IDENTITY_MISMATCH
-```
-
-and blocks automated closure.
-
----
-
-## 9. End-to-End Workflow
-
-```text
-                    ┌─────────────────────┐
-                    │ Fire-safety rule /  │
-                    │ regulation          │
-                    └──────────┬──────────┘
-                               ↓
-                    ┌─────────────────────┐
-                    │ Policy intelligence │
-                    └──────────┬──────────┘
-                               ↓
-                    ┌─────────────────────┐
-                    │ Compliance proof    │
-                    │ contract            │
-                    └──────────┬──────────┘
-                               ↓
-                    ┌─────────────────────┐
-                    │ Violation detected  │
-                    └──────────┬──────────┘
-                               ↓
-                    ┌─────────────────────┐
-                    │ Remediation action  │
-                    └──────────┬──────────┘
-                               ↓
-                    ┌─────────────────────┐
-                    │ Evidence submitted  │
-                    └──────────┬──────────┘
-                               ↓
-              ┌─────────────────────────────────┐
-              │ Remediation attribution engine │
-              ├─────────────────────────────────┤
-              │ Asset identity                  │
-              │ Temporal relation               │
-              │ Physical state                  │
-              │ Evidence sufficiency            │
-              │ Contradiction checks             │
-              └────────────────┬────────────────┘
-                               ↓
-                     ┌─────────┴─────────┐
-                     │                   │
-                  PROVEN              UNPROVEN
-                     │                   │
-                     ↓                   ↓
-              VERIFIED_RESOLVED    Proof deficit
-                                         ↓
-                                 Targeted verification
-                                         ↓
-                                    New evidence
-                                         ↓
-                                    Re-evaluate
-                                         ↓
-                                  Resolve / escalate
+                                      ┌────────────────────────────────────────────────────────┐
+                                      │             FIREGUARD AI COMMAND CENTER                │
+                                      │ React 19 + Vite + TailwindCSS + Leaflet + Recharts     │
+                                      └───────────────────────────┬────────────────────────────┘
+                                                                  │ HTTP / REST (Port 5001)
+                                      ┌───────────────────────────▼────────────────────────────┐
+                                      │                EXPRESS BACKEND (Node.js)               │
+                                      │ Controllers • Repositories • Simulation • Fusion       │
+                                      └───┬─────────────┬─────────────┬────────────────────┬───┘
+                                          │             │             │                    │
+                 ┌────────────────────────┘             │             │                    └────────────────────────┐
+                 ▼                                      ▼             ▼                                             ▼
+┌─────────────────────────────────┐   ┌──────────────────────────┐   ┌────────────────────────────────┐   ┌───────────────────────┐
+│     FASTAPI ML ENGINE (Py3.13)  │   │     DATABASE LAYER       │   │      ALGORITHMIC SIMULATORS    │   │  LOCAL STORAGE SERVICE│
+│ - Forest Model (RF Classifier)  │   │ - LocalTelemetryRepo     │   │ - Hazard Propagation Engine    │   │ - data/uploads/       │
+│ - Building Model (RF Classifier)│   │ - LocalRiskRepo          │   │ - Dijkstra Evacuation Router   │   │ - Floorplan caches    │
+│ - Feature Importance & Metrics  │   │ - LocalAlertRepo         │   │ - What-If Fire Progression     │   │ - Local JSON logs     │
+│ (Port 8000)                     │   │ - MongoDB / In-Memory    │   │ - 6-Hour Forecast Engine       │   │                       │
+└─────────────────────────────────┘   └──────────────────────────┘   └────────────────────────────────┘   └───────────────────────┘
 ```
 
 ---
 
-## 10. Example 1 — Blocked Emergency Exit
+## Key Features
 
-### Initial condition
+### 1. Dual-Domain Fire Risk Machine Learning
+- **Forest Domain**: Analyzes ambient temperature, relative humidity, wind speed, pressure, rainfall, atmospheric oxygen, and Canadian FWI components (`FFMC`, `DMC`, `DC`, `ISI`, `BUI`, `FWI`).
+  - *Accuracy*: 92.83% | *ROC-AUC*: 0.9812 | *F1-Score*: 0.8924
+- **Building Domain**: Evaluates optical smoke obscuration index, thermal sensors, electrical circuit loads, occupant counts, airflow, zone types, and NFPA material flammability ratings.
+  - *Accuracy*: 99.98% | *ROC-AUC*: 1.0000 | *F1-Score*: 0.9970
 
-```text
-Exit E01 = BLOCKED
-```
+### 2. Deterministic Rule-Based Baseline Engine
+An explainable, threshold-driven rule engine runs alongside the ML models, allowing operators to compare ML confidence against established fire safety heuristics.
 
-### Corrective action
+### 3. Multi-Source Risk Fusion Engine
+Synthesizes four distinct vectors into a single unified `overall_fire_hazard_score` and `overall_fire_hazard_level` (`LOW`, `MEDIUM`, `HIGH`, `CRITICAL`):
+$$\text{HazardScore} = w_f \cdot \text{Forest} + w_w \cdot \text{Weather} + w_b \cdot \text{Building} + w_e \cdot \text{Exposure}$$
+Weights are configurable in real-time via the Command Center settings.
 
-```text
-Remove obstruction
-```
+### 4. Interactive 2D Facility Floorplans
+Renders interactive 2D spatial layouts for **Building A** (Advanced Research Facility), **Building B** (Academic & Compute Complex), and **Building C** (Operations & Logistics Center) with live zone telemetry and flammability metrics.
 
-### Submitted evidence
+### 5. Algorithmic Hazard Propagation Simulation
+Discrete-time multi-hop graph cascade model that tracks heat, smoke, and airflow spread to connected zones based on distance attenuation and barrier flammability.
 
-```text
-Photo P1
-```
+### 6. Dijkstra Safest Evacuation Routing
+Dynamically calculates the shortest and lowest-hazard egress path from any room to designated emergency exits (Exit A / Exit B), dynamically avoiding compromised or fire-engulfed corridors.
 
-### Evaluation
+### 7. Interactive What-If Fire Simulation
+Allows incident commanders to pick an origin room, initial severity, ambient weather, and duration, then scrub through a step-by-step playback slider showing flame spread and real-time egress rerouting.
 
-```text
-Correct exit?        YES
-Evidence current?    YES
-Whole zone visible?  NO
-Exit clear?          UNKNOWN
-```
+### 8. 6-Hour Time-Series Forecast
+Diurnal atmospheric modeling (temperature cycle, humidity drop, wind gusts) evaluated through machine learning pipelines for Current, +1h, +2h, +3h, +4h, +5h, and +6h intervals.
 
-Therefore:
-
-```text
-PROOF_INCOMPLETE
-```
-
-The system requests/initiates targeted verification, such as a second camera view.
-
-New observation:
-
-```text
-Exit E01 = CLEAR
-```
-
-The proof contract becomes satisfied and the state changes to:
-
-```text
-VERIFIED_RESOLVED
-```
-
-If the second view shows the exit is still blocked:
-
-```text
-REMEDIATION_FAILED
-```
-
-and the governance layer begins the corrective/escalation workflow.
+### 9. Open-Source Geospatial Fire Map
+Leaflet-powered map displaying wildland regional basins, live ignition probabilities, and danger perimeters without external proprietary mapping APIs.
 
 ---
 
-## 11. Example 2 — Fire Door
+## Local Development Quickstart
 
-### Violation
+FireGuard AI runs 100% locally. No AWS credentials, accounts, or cloud resources are required.
 
-```text
-FD-17 does not reliably close/latch.
-```
-
-### Reported remediation
-
-```text
-Repair door closer/latch.
-```
-
-### Photo evidence
-
-The photo shows a closed door.
-
-But:
-
-```text
-Identity          = verified
-Current state     = verified
-Functional close  = unproven
-Latch engagement  = unproven
-```
-
-The system does **not** mark the violation resolved.
-
-A functional test or simulated sensor query is selected.
-
-Result:
-
-```text
-Closed = YES
-Latch = YES
-```
-
-Now the required remediation transition is sufficiently demonstrated.
+### Prerequisites
+- Node.js 18+ (tested on Node.js v24)
+- Python 3.10+ (tested on Python 3.13)
+- Optional: MongoDB (an in-memory resilient repository fallback is active automatically if Mongo is offline)
 
 ---
 
-## 12. Example 3 — Wrong Asset Evidence
+### Step 1: Clone and Configure Environment
 
-Violation:
+```bash
+git clone https://github.com/Tsukikage23/forest-fire-risk-prediction.git
+cd forest-fire-risk-prediction
 
-```text
-FD-17 defective
-```
-
-Evidence:
-
-```text
-Photo shows FD-18
-```
-
-A generic visual system might report:
-
-```text
-Door appears closed.
-```
-
-Our system reports:
-
-```text
-IDENTITY_MISMATCH
-Required asset = FD-17
-Observed asset = FD-18
-Automatic closure prohibited.
-```
-
-This illustrates why the project is about **remediation attribution**, not simply image classification.
-
----
-
-## 13. Example 4 — Current Safe State Without Proven Remediation
-
-Suppose:
-
-```text
-10:00  Exit E01 blocked
-12:00  Owner reports correction
-15:00  Exit E01 appears clear
-```
-
-A state-only system can conclude:
-
-```text
-Current state = CLEAR
-```
-
-The proposed system additionally asks whether the evidence is sufficiently linked to:
-
-```text
-Violation E01
-      ↓
-Recorded remediation
-      ↓
-Required physical transition
-      ↓
-Observed compliant state
-```
-
-The project therefore treats **current safety** and **proven remediation** as related but distinct questions.
-
----
-
-## 14. Core Modules
-
-### 14.1 Policy Intelligence Engine
-
-Responsibilities:
-
-- ingest selected fire-safety requirements;
-- represent applicable clauses;
-- define required safety conditions;
-- generate machine-readable compliance obligations.
-
-The project does not claim NLP/LLM regulation interpretation itself as novel.
-
-### 14.2 Compliance State Manager
-
-Maintains states such as:
-
-```text
-DETECTED
-REMEDIATION_REQUIRED
-CORRECTION_CLAIMED
-PROOF_PENDING
-VERIFICATION
-VERIFIED_RESOLVED
-REMEDIATION_FAILED
-UNRESOLVED
-ESCALATED
-```
-
-### 14.3 Proof Contract Engine
-
-Creates and evaluates the predicates required for valid closure.
-
-### 14.4 Evidence Processing Layer
-
-Handles:
-
-- images;
-- sensor observations;
-- maintenance records;
-- inspection forms;
-- certificates;
-- timestamps;
-- asset identifiers.
-
-### 14.5 Remediation Attribution Engine
-
-Checks whether the evidence supports:
-
-```text
-correct asset
-+
-correct remediation context
-+
-expected physical effect
-+
-valid temporal relationship
-+
-consistent evidence
-```
-
-### 14.6 Verification Controller
-
-When proof is incomplete, selects from available verification operations such as:
-
-- targeted photograph;
-- camera query;
-- sensor query;
-- functional test;
-- human verification.
-
-### 14.7 Governance Layer
-
-Turns proof outcomes into:
-
-```text
-verified closure
-corrective action
-further verification
-escalation
-```
-
-### 14.8 Audit Layer
-
-Stores the reasoning trail:
-
-```text
-Rule
-→ Obligation
-→ Violation
-→ Asset
-→ Remediation
-→ Evidence
-→ Verification
-→ Decision
+# Copy configuration
+cp .env.example .env
 ```
 
 ---
 
-## 15. Prototype Scope
+### Step 2: Install Dependencies
 
-Do not attempt to reproduce an entire city-wide fire-safety authority system.
+```bash
+# 1. Install Backend Dependencies
+cd backend
+npm install
+cd ..
 
-Use three controlled violation classes:
+# 2. Install Frontend Dependencies
+cd frontend
+npm install
+cd ..
 
-### A. Blocked emergency exit
-
-Evidence:
-- photographs;
-- simulated camera observations.
-
-### B. Fire door functional failure
-
-Evidence:
-- photograph;
-- simulated door sensor;
-- simulated closure/latch test.
-
-### C. Fire extinguisher certification issue
-
-Evidence:
-- certificate/document;
-- serial number;
-- inspection record.
-
-These three cases demonstrate different proof structures.
-
----
-
-## 16. Recommended Prototype Data Objects
-
-### Building
-
-```json
-{
-  "building_id": "B001",
-  "name": "Demo Facility",
-  "occupancy": 500
-}
-```
-
-### Asset
-
-```json
-{
-  "asset_id": "FD-17",
-  "asset_type": "fire_door",
-  "location": "Floor 3 / East Corridor"
-}
-```
-
-### Violation
-
-```json
-{
-  "violation_id": "V-102",
-  "asset_id": "FD-17",
-  "rule_id": "FD-001",
-  "state": "REMEDIATION_REQUIRED"
-}
-```
-
-### Remediation
-
-```json
-{
-  "remediation_id": "R-102",
-  "violation_id": "V-102",
-  "action": "repair_door_closer",
-  "reported_time": "..."
-}
-```
-
-### Evidence
-
-```json
-{
-  "evidence_id": "E-991",
-  "remediation_id": "R-102",
-  "asset_id": "FD-17",
-  "type": "photo",
-  "timestamp": "..."
-}
-```
-
-### Proof result
-
-```json
-{
-  "violation_id": "V-102",
-  "identity_check": "PASS",
-  "temporal_check": "PASS",
-  "physical_condition": "PASS",
-  "remediation_attribution": "PROVEN",
-  "final_state": "VERIFIED_RESOLVED"
-}
+# 3. Setup Python Virtual Environment
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
 ```
 
 ---
 
-## 17. Research Baselines
+### Step 3: Generate Datasets & Train Models
 
-The project should compare at least three approaches.
+Run the reproducible synthetic dataset generators and train the Random Forest pipelines:
 
-### Baseline 1 — Evidence acceptance
+```bash
+# Generate Correlated Datasets
+python ml/generate_building_dataset.py --samples 20000 --seed 42
+python ml/generate_forest_dataset.py --samples 15000 --seed 42
 
-```text
-Evidence submitted
-→ human/simple check
-→ resolved
-```
+# Train Forest & Building Models
+python ml/train_forest.py
+python ml/train_building.py
 
-### Baseline 2 — Evidence confidence
-
-```text
-Evidence
-→ confidence score
-→ threshold
-→ resolved / rejected
-```
-
-### Proposed method
-
-```text
-Evidence
-→ proof predicates
-→ asset/time/physical checks
-→ remediation attribution
-→ targeted verification when needed
-→ controlled closure
+# Evaluate Model Accuracy
+python ml/evaluate_forest.py
+python ml/evaluate_building.py
 ```
 
 ---
 
-## 18. Evaluation Metrics
+### Step 4: Launch Local Services
 
-### False-resolution rate
+Start each service in a terminal window:
 
-How often is a violation incorrectly marked resolved?
+```bash
+# Terminal 1: Start ML Inference Engine (Port 8000)
+cd ml
+../.venv/bin/uvicorn app:app --port 8000 --host 0.0.0.0 --reload
 
-### Remediation attribution accuracy
+# Terminal 2: Start Express Backend API (Port 5001)
+cd backend
+npm run dev
 
-How often does the system correctly associate evidence with the intended safety asset and remediation?
-
-### Verification effort
-
-How many additional verification operations are needed per case?
-
-### Time to verified closure
-
-How quickly can a case reach a valid proof-backed state?
-
-### Human intervention rate
-
-How many cases require human review?
-
-### Evidence redundancy
-
-How many unnecessary evidence requests are produced?
-
-### Contradiction detection
-
-How often does the system detect inconsistent evidence instead of accepting it?
-
----
-
-## 19. Primary Research Hypothesis
-
-> **Conditioning compliance closure on remediation-attributed physical evidence can reduce false compliance resolution compared with state-only or confidence-threshold verification approaches.**
-
-This is the hypothesis to test—not an assumption to prove in advance.
-
----
-
-## 20. AWS Feasibility
-
-AWS is the implementation platform, not the source of novelty.
-
-Broad capability categories:
-
-| Capability | Purpose |
-|---|---|
-| Data ingestion | sensor/inspection events |
-| Compute | policy/proof/verification processing |
-| Storage | images/documents/evidence |
-| Database | asset/violation/proof state |
-| Event processing | state changes |
-| Workflow | remediation and verification |
-| Security | authentication and authorization |
-| Monitoring | system health and audit monitoring |
-
-A prototype can be built without dependence on a special AWS-only algorithm.
-
----
-
-## 21. Suggested AWS Mapping
-
-A final architecture may use services such as:
-
-```text
-Cognito           → authentication
-API Gateway       → API entry point
-Lambda / ECS      → business and proof logic
-S3                → evidence storage
-DynamoDB / RDS    → state and structured data
-EventBridge       → event routing
-Step Functions    → remediation / verification workflow
-SNS / SQS         → notification and asynchronous tasks
-CloudWatch        → monitoring
-IAM               → authorization
+# Terminal 3: Start Command Center Frontend (Port 5173)
+cd frontend
+npm run dev
 ```
 
-Service selection should be justified by function and cost, not by novelty.
+Open your browser at: **`http://localhost:5173`**
 
 ---
 
-## 22. Security and Trust Considerations
+### Step 5: (Optional) Run Live Sensor Stream Simulator
 
-Because compliance evidence can affect operational decisions, the prototype should consider:
+Simulate streaming IoT sensor telemetry across building zones and forest stations:
 
-- authenticated evidence submission;
-- role-based access;
-- immutable or tamper-evident decision records where appropriate;
-- evidence timestamps;
-- asset identity;
-- access logging;
-- model uncertainty;
-- human review for high-impact unresolved cases.
+```bash
+# Standard periodic telemetry stream (5-second intervals)
+node simulator/sensorSimulator.js
 
-The project should not claim that AI-generated evidence is automatically trustworthy.
-
----
-
-## 23. Expected Outputs
-
-1. A proof-contract representation for selected fire-safety rules.
-2. A compliance-state manager.
-3. An evidence evaluation pipeline.
-4. A remediation-attribution engine.
-5. A targeted verification workflow.
-6. A cloud-hosted prototype.
-7. Controlled experiments against baseline methods.
-8. Quantitative evaluation of false resolution and verification effort.
-9. A research paper / project report.
-10. A novelty and prior-art analysis suitable for discussion with a patent professional.
-
----
-
-## 24. Why This Is Not Just a Dashboard
-
-The dashboard is only an interface.
-
-The research contribution is the mechanism that controls whether the system may change:
-
-```text
-PROOF_PENDING
-        ↓
-VERIFIED_RESOLVED
-```
-
-That transition is conditional on evidence and remediation attribution.
-
-The key technical question is therefore:
-
-> **What evidence relationship is sufficient to authorize a compliance-state transition?**
-
----
-
-## 25. What This Project Does NOT Claim
-
-This project does not claim to invent:
-
-- fire detection;
-- fire-spread prediction;
-- smoke prediction;
-- IoT sensing;
-- BIM;
-- digital twins;
-- LLM regulation interpretation;
-- knowledge graphs;
-- generic evidence sufficiency;
-- generic confidence scoring;
-- pre/post comparison;
-- generic adaptive inspection;
-- cloud computing;
-- audit trails;
-- ordinary escalation workflows.
-
-These may be implementation or supporting techniques.
-
----
-
-## 26. Relationship to the 15-Paper Survey
-
-The 15-paper literature survey covers a broad ecosystem including detection, prediction, risk assessment, BIM/code checking, rule/ontology reasoning, hazard recommendation and cloud monitoring.
-
-The proposed system operates primarily at the downstream lifecycle layer:
-
-```text
-Detection / Prediction / Risk / Compliance Checking
-                     ↓
-                  Violation
-                     ↓
-                Remediation
-                     ↓
-                  Evidence
-                     ↓
-           Remediation Attribution
-                     ↓
-             Verified Closure
-              /           \
-        Corrective        Escalation
-```
-
-It therefore complements rather than replaces earlier research.
-
----
-
-## 27. Important Prior-Art Position
-
-Current literature and patents already contain substantial overlap with individual parts of this project.
-
-Examples include:
-
-- operational fire-safety compliance using in-use data, in-situ images and regulatory clauses;
-- compliance evidence verification;
-- post-enforcement or post-remediation verification;
-- evidence packages that change when earlier evidence is deficient;
-- compliance state tracking;
-- adaptive verification and testing.
-
-Therefore:
-
-> **The project must not claim novelty for the individual components.**
-
-The research question is whether the specific coupling of:
-
-```text
-specific violation
-+
-specific physical asset
-+
-recorded remediation
-+
-expected physical effect
-+
-identity/time/evidence linkage
-+
-remediation attribution
-+
-controlled compliance-state closure
-```
-
-provides a sufficiently differentiated technical mechanism.
-
----
-
-## 28. Current Novelty Status
-
-**Status: Research hypothesis / candidate invention.**
-
-A professional claim-level patent search is still required before any statement such as “novel,” “inventive,” or “patentable” is treated as legally established.
-
----
-
-## 29. Recommended Presentation Pitch
-
-> **“Existing systems are increasingly good at detecting fire-safety problems, checking regulations and receiving corrective evidence. Our project focuses on what happens after someone says a violation has been fixed. Instead of treating a submitted photograph or report as proof, our system verifies that the evidence belongs to the correct physical safety asset, occurred in the correct remediation context, and demonstrates the required physical improvement. Only then can the digital compliance state become verified-resolved.”**
-
----
-
-## 30. One-Line Pitch
-
-> **We make “resolved” a proof-backed physical state rather than a status update.**
-
----
-
-## 31. Repository Structure
-
-```text
-fire-safety-compliance/
-│
-├── README.md
-├── ABSTRACT.md
-├── NOVELTY.md
-│
-├── docs/
-│   ├── problem-statement.md
-│   ├── workflow.md
-│   ├── proof-contract.md
-│   ├── evaluation-plan.md
-│   └── viva-defense.md
-│
-├── data/
-│   ├── README.md
-│   └── sample/
-│
-├── src/
-│   ├── policy_engine/
-│   ├── proof_engine/
-│   ├── evidence/
-│   ├── attribution/
-│   ├── verification/
-│   └── governance/
-│
-├── tests/
-└── diagrams/
+# Inject thermal anomaly in Building A Electrical Room
+node simulator/sensorSimulator.js --interval 3000 --anomaly bldg_a_elec
 ```
 
 ---
 
-## 32. Status
+## Project Structure
 
-- [x] 15-paper literature review
-- [x] Research-gap analysis
-- [x] Hostile prior-art rounds
-- [x] Project redesign
-- [x] Core invention hypothesis
-- [x] Prototype scope
-- [ ] Claim-level exhaustive patent search
-- [ ] Formal patent opinion
-- [ ] Prototype implementation
-- [ ] Controlled evaluation
-- [ ] Final research paper
+```
+forest-fire-risk-prediction/
+├── backend/                  # Node.js + Express REST API
+│   ├── src/
+│   │   ├── config/           # Environment variables & Building topologies
+│   │   ├── controllers/      # Building, Risk, Forecast, Simulation, Alerts, Analytics
+│   │   ├── repositories/     # Repository interfaces & local in-memory/disk implementations
+│   │   ├── routes/           # Centralized API route definitions
+│   │   └── services/         # Rule engine, Risk fusion, Dijkstra routing, Propagation
+│   └── test/                 # Automated API unit tests
+├── frontend/                 # React 19 + Vite + TailwindCSS
+│   ├── src/
+│   │   ├── components/       # Layout, Navigation, RiskBadges
+│   │   ├── pages/            # 10 Command Center Views (Dashboard, Map, 2D Floorplan, etc.)
+│   │   └── services/         # Axios API client
+├── ml/                       # Dual-Domain Machine Learning Pipeline
+│   ├── datasets/             # Local data caches
+│   ├── models/               # Serialized .joblib models and evaluation metrics
+│   ├── preprocessing/        # Custom scikit-learn transformers
+│   ├── app.py                # FastAPI dual-domain prediction server
+│   ├── train_forest.py       # Forest model training
+│   ├── train_building.py     # Building model training
+│   ├── predict_forest.py     # Forest inference
+│   ├── predict_building.py   # Building inference
+│   └── feature_importance.py # MDI feature importance analysis
+├── simulator/                # Standalone IoT sensor telemetry simulator
+│   └── sensorSimulator.js
+├── data/                     # Data stores (forest, building, weather, geography)
+├── docs/                     # Architectural documentation
+│   ├── aws-integration-guide.md # Blueprint for future cloud integration
+│   └── data-sources.md          # Dataset provenance and synthetic transparency
+└── legacy/aws/               # Quarantined legacy cloud formation & deployment scripts
+```
 
 ---
 
-## 33. License / Disclaimer
+## API Endpoints Reference
 
-This repository is an academic/research project.
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `GET` | `/api/health` | Service health status and database connectivity |
+| `GET` | `/api/buildings` | List monitored buildings with summary statistics |
+| `GET` | `/api/buildings/:id` | Full building topology, zones, coordinates, and live risk states |
+| `GET` | `/api/zones` | Filterable zone list with live sensor telemetry |
+| `GET` | `/api/buildings/:id/evacuation-route` | Dijkstra safest evacuation route from origin zone to safe exit |
+| `GET` | `/api/risk/current` | Multi-source fused operational fire hazard index |
+| `GET/POST` | `/api/risk/forest` | Forest wildland fire ML prediction vs rule-based evaluation |
+| `GET/POST` | `/api/risk/building` | Facility zone fire ML prediction vs rule-based evaluation |
+| `GET` | `/api/risk/overall` | Fused hazard score with custom weights |
+| `POST` | `/api/risk/weights` | Update dynamic Risk Fusion Engine weights |
+| `GET` | `/api/forecast` | 6-hour predictive time-series hazard forecast |
+| `POST` | `/api/simulation/fire` | Run What-If multi-step fire propagation simulation |
+| `GET` | `/api/geospatial/risk` | Regional wildfire coordinates and weather intensity for Leaflet |
+| `GET` | `/api/alerts` | Active and acknowledged incident alert feed |
+| `POST` | `/api/alerts/:id/ack` | Acknowledge incident alert |
+| `GET` | `/api/analytics` | Multi-sensor 24h historical trends and ML model performance metrics |
+| `GET` | `/api/telemetry/latest` | Latest sensor readings across facilities and stations |
+| `POST` | `/api/telemetry` | Ingest sensor telemetry stream |
 
-The invention language in this repository describes a **candidate research concept** and must not be treated as a legal opinion or a guarantee of patentability.
+---
 
-Before public patent disclosure or filing, obtain appropriate patent counsel and review publication timing, prior art and claim scope.
+## Future AWS Cloud Integration
+
+The core application utilizes clear interfaces (`ITelemetryRepository`, `IRiskRepository`, `IAlertService`, `IObjectStorageService`, `IEventPublisher`) enabling straightforward cloud integration:
+
+- **LocalTelemetryRepository** $\rightarrow$ **AWS IoT Core / Amazon DynamoDB**
+- **LocalRiskRepository** $\rightarrow$ **Amazon DynamoDB**
+- **LocalAlertService** $\rightarrow$ **Amazon Simple Notification Service (SNS)**
+- **LocalStorageService** $\rightarrow$ **Amazon Simple Storage Service (S3)**
+- **Express Backend** $\rightarrow$ **AWS Lambda + Amazon API Gateway**
+- **Console / Task Logs** $\rightarrow$ **Amazon CloudWatch Logs**
+
+See [docs/aws-integration-guide.md](file:///Users/adityajain/forest-fire-risk-prediction/docs/aws-integration-guide.md) for full implementation details, IAM policies, and code blueprints.
+
+---
+
+## Verification & Automated Testing
+
+Run the test suites locally:
+
+```bash
+# Backend Automated Tests (Node.js Test Runner)
+npm --prefix backend run test
+
+# Frontend Unit Tests (Vitest)
+npm --prefix frontend run test
+
+# Frontend Production Build Verification
+npm --prefix frontend run build
+```
+
+---
+
+## License
+
+MIT License. Designed and maintained for Tsukikage23.

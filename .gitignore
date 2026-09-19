@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+*.joblib
+*.pkl
+
+# Node.js
+node_modules/
+dist/
+.npm
+npm-debug.log*
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Local storage and data uploads
+data/uploads/*
+!data/uploads/.gitkeep
+
+# Local tooling & OS
+.DS_Store
+.vscode/
+.idea/
+
+# Testing & Coverage
+coverage/
+reports/
+.vitest/

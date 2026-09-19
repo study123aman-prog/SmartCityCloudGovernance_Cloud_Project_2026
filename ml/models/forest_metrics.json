@@ -1,0 +1,53 @@
+{
+  "model_type": "RandomForest",
+  "dataset_samples": 15000,
+  "train_samples": 12000,
+  "test_samples": 3000,
+  "accuracy": 0.9283,
+  "precision": 0.8569,
+  "recall": 0.9311,
+  "f1_score": 0.8924,
+  "roc_auc": 0.9812,
+  "confusion_matrix": [
+    [
+      1893,
+      149
+    ],
+    [
+      66,
+      892
+    ]
+  ],
+  "feature_names": [
+    "temperature",
+    "oxygen_level",
+    "humidity",
+    "wind_speed",
+    "pressure",
+    "rainfall",
+    "latitude",
+    "longitude",
+    "ffmc",
+    "dmc",
+    "dc",
+    "isi",
+    "bui",
+    "fwi"
+  ],
+  "feature_importances": {
+    "temperature": 0.0738,
+    "oxygen_level": 0.0117,
+    "humidity": 0.0572,
+    "wind_speed": 0.0183,
+    "pressure": 0.0114,
+    "rainfall": 0.0328,
+    "latitude": 0.0153,
+    "longitude": 0.0133,
+    "ffmc": 0.1518,
+    "dmc": 0.0168,
+    "dc": 0.0128,
+    "isi": 0.2584,
+    "bui": 0.0223,
+    "fwi": 0.3041
+  }
+}
