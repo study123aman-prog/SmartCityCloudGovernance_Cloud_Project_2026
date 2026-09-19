@@ -92,8 +92,8 @@ FireGuard AI runs 100% locally. No AWS credentials, accounts, or cloud resources
 ### Step 1: Clone and Configure Environment
 
 ```bash
-git clone https://github.com/Tsukikage23/forest-fire-risk-prediction.git
-cd forest-fire-risk-prediction
+git clone https://github.com/study123aman-prog/SmartCityCloudGovernance_Cloud_Project_2026.git
+cd SmartCityCloudGovernance_Cloud_Project_2026
 
 # Copy configuration
 cp .env.example .env
@@ -252,7 +252,7 @@ The core application utilizes clear interfaces (`ITelemetryRepository`, `IRiskRe
 - **Express Backend** $\rightarrow$ **AWS Lambda + Amazon API Gateway**
 - **Console / Task Logs** $\rightarrow$ **Amazon CloudWatch Logs**
 
-See [docs/aws-integration-guide.md](file:///Users/adityajain/forest-fire-risk-prediction/docs/aws-integration-guide.md) for full implementation details, IAM policies, and code blueprints.
+See [docs/aws-integration-guide.md](docs/aws-integration-guide.md) for full implementation details, IAM policies, and code blueprints.
 
 ---
 
@@ -275,4 +275,4 @@ npm --prefix frontend run build
 
 ## License
 
-MIT License. Designed and maintained for Tsukikage23.
+MIT License - SmartCity Cloud Governance Project 2026.
