@@ -300,6 +300,21 @@ For in-depth technical specifications and academic deliverables, refer to the do
 
 ---
 
+## Future AWS Cloud Integration
+
+The core application utilizes clear interfaces (`ITelemetryRepository`, `IRiskRepository`, `IAlertService`, `IObjectStorageService`, `IEventPublisher`) enabling straightforward cloud integration:
+
+- **LocalTelemetryRepository** $\rightarrow$ **AWS IoT Core / Amazon DynamoDB**
+- **LocalRiskRepository** $\rightarrow$ **Amazon DynamoDB**
+- **LocalAlertService** $\rightarrow$ **Amazon Simple Notification Service (SNS)**
+- **LocalStorageService** $\rightarrow$ **Amazon Simple Storage Service (S3)**
+- **Express Backend** $\rightarrow$ **AWS Lambda + Amazon API Gateway**
+- **Console / Task Logs** $\rightarrow$ **Amazon CloudWatch Logs**
+
+See [docs/aws-integration-guide.md](docs/aws-integration-guide.md) for full implementation details, IAM policies, and code blueprints.
+
+---
+
 ## Verification & Automated Testing
 
 Run the automated test suites locally:
