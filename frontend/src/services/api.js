@@ -31,7 +31,7 @@ export function getApiError(error, fallback = "Something went wrong") {
   return fallback;
 }
 
-// FireGuard AI API Service Helpers
+// IgnisCore — Intelligent Fire Hazard Monitoring System API Service Helpers
 export const fireGuardApi = {
   // Buildings & Zones
   getBuildings: () => api.get('/buildings').then((r) => r.data.buildings),

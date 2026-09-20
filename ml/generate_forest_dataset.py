@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-FireGuard AI - Forest & Environmental Fire Risk Dataset Generator
+IgnisCore — Intelligent Fire Hazard Monitoring System - Forest & Environmental Fire Risk Dataset Generator
 Generates environmental fire condition records incorporating:
 - Core features: Temperature, Oxygen Level, Humidity, Wind Speed, Pressure, Rainfall
 - Geospatial coordinates: Latitude, Longitude, Region

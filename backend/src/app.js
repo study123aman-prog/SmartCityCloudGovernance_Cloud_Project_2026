@@ -46,7 +46,7 @@ export function createApp(environment) {
   const healthHandler = (_request, response) => {
     response.json({
       status: "ok",
-      project: "FireGuard AI",
+      project: "IgnisCore — Intelligent Fire Hazard Monitoring System",
       version: "2.0.0",
       architecture: "Local-First Decoupled Microservices",
       database: mongoose.connection.readyState === 1 ? "connected" : "in_memory_resilient",
@@ -57,7 +57,7 @@ export function createApp(environment) {
   app.get("/health", healthHandler);
   app.get("/api/health", healthHandler);
 
-  // FireGuard AI Multi-Domain Endpoints
+  // IgnisCore — Intelligent Fire Hazard Monitoring System Multi-Domain Endpoints
   app.use("/api", createFireGuardRoutes());
 
   // Legacy/Compatibility Auth, Env, File, and Prediction Routes

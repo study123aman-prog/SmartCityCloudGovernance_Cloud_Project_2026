@@ -1,5 +1,5 @@
 /**
- * FireGuard AI - Algorithmic Fire Hazard Propagation Engine
+ * IgnisCore — Intelligent Fire Hazard Monitoring System - Algorithmic Fire Hazard Propagation Engine
  * 
  * NOTE: This is an algorithmic risk-propagation model for spatial awareness
  * and rapid response decision-support. It is not physically accurate

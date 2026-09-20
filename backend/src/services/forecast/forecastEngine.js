@@ -1,5 +1,5 @@
 /**
- * FireGuard AI - 6-Hour Time-Series Fire Risk Forecast Engine
+ * IgnisCore — Intelligent Fire Hazard Monitoring System - 6-Hour Time-Series Fire Risk Forecast Engine
  * 
  * Computes deterministic meteorological diurnal progression (temperature curves,
  * humidity desiccation, convective wind shifts) and evaluates forward fire risk

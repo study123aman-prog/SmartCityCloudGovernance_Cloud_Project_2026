@@ -1,5 +1,5 @@
 /**
- * FireGuard AI - Risk Fusion Engine
+ * IgnisCore — Intelligent Fire Hazard Monitoring System - Risk Fusion Engine
  * 
  * Synthesizes multi-source hazard inputs:
  * 1. Forest Fire Risk (from ML/weather forest model)

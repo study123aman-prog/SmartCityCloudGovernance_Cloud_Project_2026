@@ -22,7 +22,7 @@ export default function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
 
-      {/* Main FireGuard AI Command Center */}
+      {/* Main IgnisCore — Intelligent Fire Hazard Monitoring System Command Center */}
       <Route element={<Layout />}>
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
         <Route path="/dashboard" element={<Dashboard />} />

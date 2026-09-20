@@ -1,6 +1,6 @@
 # Geography & Spatial Corridor Data
 
-This directory references geographic wildfire corridors and digital topography used by FireGuard AI's Leaflet Geospatial Risk engine.
+This directory references geographic wildfire corridors and digital topography used by IgnisCore — Intelligent Fire Hazard Monitoring System's Leaflet Geospatial Risk engine.
 
 ## Monitored Regional Basins
 - **Sierra Foothills Corridor** (38.5439°N, -120.9380°W, elev: 680m, vegetation: Dry Pine & Chaparral)

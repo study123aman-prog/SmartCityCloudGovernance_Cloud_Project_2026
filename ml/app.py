@@ -1,5 +1,5 @@
 """
-FireGuard AI - FastAPI Dual-Domain ML Inference Service
+IgnisCore — Intelligent Fire Hazard Monitoring System - FastAPI Dual-Domain ML Inference Service
 """
 
 import os
@@ -42,7 +42,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="FireGuard AI - Dual-Domain ML Prediction Engine",
+    title="IgnisCore — Intelligent Fire Hazard Monitoring System - Dual-Domain ML Prediction Engine",
     description="Multi-Source Machine Learning Inference for Forest and Infrastructure Fire Risk",
     version="2.0.0",
     lifespan=lifespan,
@@ -89,7 +89,7 @@ class BuildingPredictionRequest(BaseModel):
 def health() -> Dict[str, Any]:
     return {
         "status": "ok",
-        "service": "FireGuard AI ML Service",
+        "service": "IgnisCore — Intelligent Fire Hazard Monitoring System ML Service",
         "version": "2.0.0",
         "models_loaded": {
             "forest": forest_predictor is not None,

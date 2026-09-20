@@ -1,5 +1,5 @@
 /**
- * FireGuard AI - Dynamic Safest Evacuation Router (Dijkstra / A*)
+ * IgnisCore — Intelligent Fire Hazard Monitoring System - Dynamic Safest Evacuation Router (Dijkstra / A*)
  * 
  * Computes the safest, lowest-hazard egress route from any origin zone to the safest available exit.
  * Penalizes high-risk zones, bypasses blocked/critical zones, and factors in distance & congestion.

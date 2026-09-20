@@ -1,5 +1,5 @@
 """
-FireGuard AI - Building Fire Model Evaluation Script
+IgnisCore — Intelligent Fire Hazard Monitoring System - Building Fire Model Evaluation Script
 """
 
 import os

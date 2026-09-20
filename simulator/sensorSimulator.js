@@ -1,5 +1,5 @@
 /**
- * FireGuard AI - Real-Time Sensor Telemetry Stream Simulator
+ * IgnisCore — Intelligent Fire Hazard Monitoring System - Real-Time Sensor Telemetry Stream Simulator
  * 
  * Simulates active IoT multi-sensor telemetry broadcast for Building A, B, C
  * and regional forest monitoring stations without needing AWS IoT Core.
@@ -124,7 +124,7 @@ async function runTick(tickCount, anomalyZone) {
 function start() {
   const { interval, anomalyZone } = parseArgs();
   console.log('====================================================');
-  console.log('      FireGuard AI - Telemetry Sensor Simulator     ');
+  console.log('      IgnisCore — Intelligent Fire Hazard Monitoring System - Telemetry Sensor Simulator     ');
   console.log('====================================================');
   console.log(`Target: http://${API_HOST}:${API_PORT}/api/telemetry`);
   console.log(`Stream interval: ${interval}ms`);

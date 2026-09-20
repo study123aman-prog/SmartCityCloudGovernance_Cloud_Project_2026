@@ -1,5 +1,5 @@
 /**
- * FireGuard AI - Rule-Based Baseline Risk Engine
+ * IgnisCore — Intelligent Fire Hazard Monitoring System - Rule-Based Baseline Risk Engine
  * Provides deterministic, explainable baseline risk scores for comparison against ML models.
  */
 

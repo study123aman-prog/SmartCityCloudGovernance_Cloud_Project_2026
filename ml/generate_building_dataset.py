@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-FireGuard AI - Synthetic Building Fire Risk Dataset Generator
+IgnisCore — Intelligent Fire Hazard Monitoring System - Synthetic Building Fire Risk Dataset Generator
 Generates correlated, physics-informed building telemetry across realistic operational scenarios.
 
 Scenarios:
