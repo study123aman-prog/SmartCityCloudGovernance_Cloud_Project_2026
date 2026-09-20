@@ -26,7 +26,7 @@ test("health endpoint returns status ok and project metadata", async () => {
     assert.equal(res.status, 200);
     const body = await res.json();
     assert.equal(body.status, "ok");
-    assert.equal(body.project, "FireGuard AI");
+    assert.equal(body.project, "IgnisCore — Intelligent Fire Hazard Monitoring System");
     assert.equal(body.version, "2.0.0");
   });
 });

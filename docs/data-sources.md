@@ -1,6 +1,6 @@
-# FireGuard AI — Data Sources & Provenance Documentation
+# IgnisCore — Intelligent Fire Hazard Monitoring System — Data Sources & Provenance Documentation
 
-This document provides transparent documentation for all datasets utilized in **FireGuard AI**. In accordance with scientific and engineering best practices, synthetic data generators and their underlying correlation equations are explicitly demarcated from empirical observations.
+This document provides transparent documentation for all datasets utilized in **IgnisCore — Intelligent Fire Hazard Monitoring System**. In accordance with scientific and engineering best practices, synthetic data generators and their underlying correlation equations are explicitly demarcated from empirical observations.
 
 ---
 

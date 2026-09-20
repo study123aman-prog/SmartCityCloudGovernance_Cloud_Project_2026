@@ -1,26 +1,86 @@
-# FireGuard AI
+# IgnisCore — Intelligent Fire Hazard Monitoring System
 
-## Multi-Source Fire Hazard Prediction, Risk Propagation & Emergency Response System
+## Cloud-Native Multi-Zone Fire Hazard Intelligence, Graph-Based Risk Propagation & Dynamic Evacuation Decision Support System
 
-**FireGuard AI** is an advanced, local-first dual-domain emergency intelligence platform. It fuses **wildland/forest fire risk** (Canadian Fire Weather Index & meteorological dynamics) with **structural/building fire hazards** (optical smoke obscuration, thermal loads, electrical strain, and flammability).
+**IgnisCore — Intelligent Fire Hazard Monitoring System** is an advanced, software-only, local-first emergency intelligence platform. It fuses **wildland/forest fire risk** (Canadian Fire Weather Index & meteorological dynamics) with **structural/building fire hazards** (optical smoke obscuration, thermal loads, electrical strain, and flammability).
 
-The platform features:
-- Two dedicated Machine Learning inference engines (Random Forest models trained with scikit-learn).
-- Deterministic rule-based baseline engines for side-by-side empirical comparison.
-- A multi-source **Risk Fusion Engine** combining environmental, facility, and exposure vectors.
-- Graph-based algorithmic fire hazard propagation simulation.
-- Dynamic safest-route evacuation pathfinding (Dijkstra algorithm avoiding compromised zones).
-- Interactive What-If fire progression simulation with time-step playback.
-- A modern Command Center web interface built with React, Vite, TailwindCSS, and Leaflet GIS.
-- Completely decoupled architecture: **100% operational locally without AWS credentials or cloud infrastructure**.
+The platform eliminates physical hardware dependency by deploying a high-fidelity **Virtual Sensor Telemetry Engine**, combining dual-domain Machine Learning with deterministic rule-based explainability, graph-based hazard propagation cascades, hazard-weighted dynamic Dijkstra evacuation routing, and an interactive "What-If" incident simulation sandbox with time-step playback.
+
+---
+
+## The Paradigm Shift: Differentiators from Similar Projects
+
+Many open-source repositories and capstone projects share generic fire-related titles (e.g., `GrumpyKit10/Wildfire-Detection-System`, `mayurasandakalum/fireshield360`, `boldmonk89/edge-ai-predictive-fire-hazard-detection`). IgnisCore — Intelligent Fire Hazard Monitoring System fundamentally differentiates itself across all architectural and algorithmic dimensions:
+
+```text
+CONVENTIONAL FIRE PROJECTS (Naive / Reactive)
+┌────────────────┐      ┌─────────────────────────┐      ┌───────────────┐
+│ Physical MQ-2  │ ───> │ Microcontroller Readout │ ───> │ Buzzer / SNS  │
+│ Sensor & DHT11 │      │ (If Smoke > 400: Alarm) │      │ Static SMS    │
+└────────────────┘      └─────────────────────────┘      └───────────────┘
+
+IGNISCORE — INTELLIGENT FIRE HAZARD MONITORING SYSTEM (Predictive Intelligence & Emergency Decision Support)
+┌────────────────────────────────────────────────────────┐
+│  Software Virtual Sensor Telemetry Simulator (Multi-Zone)│
+│  (Thermal, Optical Smoke, Circuit Load, Occupancy, FWI)│
+└───────────────────────────┬────────────────────────────┘
+                            │ Event-Driven Ingestion
+┌───────────────────────────▼────────────────────────────┐
+│      Decoupled Cloud & Local-First Ingestion Layer     │
+│  (AWS IoT Core / Lambda / DynamoDB OR Local Repository)│
+└───────────────────────────┬────────────────────────────┘
+                            │
+┌───────────────────────────▼────────────────────────────┐
+│      Dual-Domain Machine Learning + Rule Comparator     │
+│   - Building Structural RF Classifier (Acc: 99.98%)    │
+│   - Wildland Canadian FWI RF Classifier (Acc: 92.83%)  │
+│   - Deterministic Explainable Rule-Based Comparator    │
+└───────────────────────────┬────────────────────────────┘
+                            │
+┌───────────────────────────▼────────────────────────────┐
+│              Multi-Source Risk Fusion Engine           │
+│ HazardScore = w_f·Forest + w_w·Weather + w_b·Building...│
+└───────────────────────────┬────────────────────────────┘
+                            │
+┌───────────────────────────▼────────────────────────────┐
+│       Topological Graph Hazard Propagation Model       │
+│ Discrete-time multi-hop heat & smoke cascade to nodes  │
+└───────────────────────────┬────────────────────────────┘
+                            │
+┌───────────────────────────▼────────────────────────────┐
+│        Hazard-Weighted Dynamic Dijkstra Router         │
+│ Computes safest egress path, avoiding compromised zones│
+└───────────────────────────┬────────────────────────────┘
+                            │
+┌───────────────────────────▼────────────────────────────┐
+│      Incident Command Center & Decision Support        │
+│ - Interactive 2D Facility Floorplans with Live Risk    │
+│ - Interactive "What-If" Simulation with Playback Slider│
+│ - Automated Emergency Multi-Channel Alerts (SNS)       │
+└────────────────────────────────────────────────────────┘
+```
+
+### Comparative Summary
+
+| Capability / Dimension | Conventional Projects (`GrumpyKit10`, `Al-dhubaibi`) | Edge-AI Prototypes (`boldmonk89`, `Salcedo`) | Deep Learning Wildfire (`FireShield360`, `Sentinel`) | **IgnisCore — Intelligent Fire Hazard Monitoring System (This Project)** |
+| :--- | :--- | :--- | :--- | :--- |
+| **Hardware Dependency** | **100% Dependent** on Arduino, ESP32, cellular shields | **100% Dependent** on physical edge microcontrollers | Dependent on cameras or LoRaWAN nodes | **100% Software-Only**: Virtual telemetry engine simulating multi-zone sensors |
+| **System Paradigm** | **Reactive**: Alarms trigger only after smoke/flame occurs | **Narrow Edge Classification**: Safe vs. Warning vs. Fire | **Reactive Flame/Smoke Detection**: Camera bounding boxes | **Predictive Intelligence & Response**: Pre-ignition risk, propagation, evacuation, What-If simulation |
+| **Domain Scope** | Single domain (wildfire only or single room) | Single domain (indoor sensor node) | Single domain (forest / wildland) | **Dual-Domain Multi-Source Fusion**: Structural building + Wildland FWI + weather vectors |
+| **ML Inference Engine** | None (simple if-else threshold) | Basic local classifier | Heavy CNN / YOLO models requiring GPU | **Dual Random Forest Classifiers** ($99.98\%$ & $92.83\%$) + deterministic rule comparator |
+| **Spatial Awareness** | None (isolated sensor coordinates) | None (single location) | Bounding box coordinates | **Topological Facility Graphs**: Multi-building floorplans, rooms, corridors, barriers |
+| **Hazard Propagation** | None | None | None | **Algorithmic Graph Cascade**: Discrete-time multi-hop model tracking smoke/heat spread |
+| **Evacuation Routing** | None (static exit signage) | None | None | **Hazard-Weighted Dynamic Dijkstra**: Safest egress path rerouting around fire-engulfed corridors |
+| **Scenario Modeling** | None | None | None | **Interactive "What-If" Fire Simulator**: Multi-step playback slider adjusting origin, severity, wind |
+| **Cloud Architecture** | Passive cloud database pipe or raw IoT upload | Local edge only | Custom external cloud or local | **Decoupled AWS Event-Driven Pipeline** (IoT Core, Lambda, DynamoDB, SNS) + **100% Local-First Autonomy** |
 
 ---
 
 ## Architecture Overview
 
-```
+```text
                                       ┌────────────────────────────────────────────────────────┐
-                                      │             FIREGUARD AI COMMAND CENTER                │
+                                      │             IGNISCORE — INTELLIGENT FIRE HAZARD MONITORING SYSTEM COMMAND CENTER                │
                                       │ React 19 + Vite + TailwindCSS + Leaflet + Recharts     │
                                       └───────────────────────────┬────────────────────────────┘
                                                                   │ HTTP / REST (Port 5001)
@@ -80,10 +140,10 @@ Leaflet-powered map displaying wildland regional basins, live ignition probabili
 
 ## Local Development Quickstart
 
-FireGuard AI runs 100% locally. No AWS credentials, accounts, or cloud resources are required.
+IgnisCore — Intelligent Fire Hazard Monitoring System runs 100% locally. No AWS credentials, accounts, or cloud resources are required.
 
 ### Prerequisites
-- Node.js 18+ (tested on Node.js v24)
+- Node.js 18+ (tested on Node.js v22/v24)
 - Python 3.10+ (tested on Python 3.13)
 - Optional: MongoDB (an in-memory resilient repository fallback is active automatically if Mongo is offline)
 
@@ -101,102 +161,74 @@ cp .env.example .env
 
 ---
 
-### Step 2: Install Dependencies
+### Step 2: Set Up Python ML Service
 
 ```bash
-# 1. Install Backend Dependencies
-cd backend
-npm install
-cd ..
+cd ml-service
 
-# 2. Install Frontend Dependencies
-cd frontend
-npm install
-cd ..
+# Create and activate virtual environment
+python3 -m venv venv
+source venv/bin/activate
 
-# 3. Setup Python Virtual Environment
-python3 -m venv .venv
-source .venv/bin/activate
+# Install dependencies
 pip install -r requirements.txt
+
+# Start FastAPI ML engine (Runs on port 8000)
+uvicorn app:app --reload --port 8000
 ```
 
 ---
 
-### Step 3: Generate Datasets & Train Models
+### Step 3: Set Up Backend Service
 
-Run the reproducible synthetic dataset generators and train the Random Forest pipelines:
-
-```bash
-# Generate Correlated Datasets
-python ml/generate_building_dataset.py --samples 20000 --seed 42
-python ml/generate_forest_dataset.py --samples 15000 --seed 42
-
-# Train Forest & Building Models
-python ml/train_forest.py
-python ml/train_building.py
-
-# Evaluate Model Accuracy
-python ml/evaluate_forest.py
-python ml/evaluate_building.py
-```
-
----
-
-### Step 4: Launch Local Services
-
-Start each service in a terminal window:
+In a new terminal:
 
 ```bash
-# Terminal 1: Start ML Inference Engine (Port 8000)
-cd ml
-../.venv/bin/uvicorn app:app --port 8000 --host 0.0.0.0 --reload
-
-# Terminal 2: Start Express Backend API (Port 5001)
 cd backend
-npm run dev
 
-# Terminal 3: Start Command Center Frontend (Port 5173)
-cd frontend
+# Install dependencies
+npm install
+
+# Start Express backend (Runs on port 5001)
 npm run dev
 ```
-
-Open your browser at: **`http://localhost:5173`**
 
 ---
 
-### Step 5: (Optional) Run Live Sensor Stream Simulator
+### Step 4: Set Up Frontend Application
 
-Simulate streaming IoT sensor telemetry across building zones and forest stations:
+In a new terminal:
 
 ```bash
-# Standard periodic telemetry stream (5-second intervals)
-node simulator/sensorSimulator.js
+cd frontend
 
-# Inject thermal anomaly in Building A Electrical Room
-node simulator/sensorSimulator.js --interval 3000 --anomaly bldg_a_elec
+# Install dependencies
+npm install
+
+# Start Vite dev server (Runs on port 5173)
+npm run dev
 ```
+
+Open your browser at `http://localhost:5173` to access the Command Center.
 
 ---
 
 ## Project Structure
 
-```
-forest-fire-risk-prediction/
+```text
+SmartCityCloudGovernance_Cloud_Project_2026/
+├── frontend/                 # React 19 + Vite + TailwindCSS Command Center UI
+│   ├── src/
+│   │   ├── components/       # Floorplans, maps, charts, simulation playback
+│   │   ├── pages/            # Dashboard, Facility, Analytics, Simulation, Alerts
+│   │   └── services/         # API client & data transformers
 ├── backend/                  # Node.js + Express REST API
 │   ├── src/
-│   │   ├── config/           # Environment variables & Building topologies
-│   │   ├── controllers/      # Building, Risk, Forecast, Simulation, Alerts, Analytics
-│   │   ├── repositories/     # Repository interfaces & local in-memory/disk implementations
-│   │   ├── routes/           # Centralized API route definitions
-│   │   └── services/         # Rule engine, Risk fusion, Dijkstra routing, Propagation
-│   └── test/                 # Automated API unit tests
-├── frontend/                 # React 19 + Vite + TailwindCSS
-│   ├── src/
-│   │   ├── components/       # Layout, Navigation, RiskBadges
-│   │   ├── pages/            # 10 Command Center Views (Dashboard, Map, 2D Floorplan, etc.)
-│   │   └── services/         # Axios API client
-├── ml/                       # Dual-Domain Machine Learning Pipeline
-│   ├── datasets/             # Local data caches
+│   │   ├── controllers/      # Route request handlers
+│   │   ├── services/         # Risk fusion, Dijkstra routing, propagation cascade
+│   │   ├── repositories/     # In-memory & MongoDB database abstractions
+│   │   └── models/           # Domain schemas & entities
+├── ml-service/               # Python FastAPI Microservice
 │   ├── models/               # Serialized .joblib models and evaluation metrics
 │   ├── preprocessing/        # Custom scikit-learn transformers
 │   ├── app.py                # FastAPI dual-domain prediction server
@@ -205,14 +237,41 @@ forest-fire-risk-prediction/
 │   ├── predict_forest.py     # Forest inference
 │   ├── predict_building.py   # Building inference
 │   └── feature_importance.py # MDI feature importance analysis
-├── simulator/                # Standalone IoT sensor telemetry simulator
+├── simulator/                # Multi-zone sensor telemetry simulator
 │   └── sensorSimulator.js
 ├── data/                     # Data stores (forest, building, weather, geography)
-├── docs/                     # Architectural documentation
-│   ├── aws-integration-guide.md # Blueprint for future cloud integration
-│   └── data-sources.md          # Dataset provenance and synthetic transparency
-└── legacy/aws/               # Quarantined legacy cloud formation & deployment scripts
+├── docs/                     # Academic, architectural, and deployment documentation
+│   ├── Abstract.md           # Formal academic abstract
+│   ├── Objectives.md         # 8 technical and research objectives
+│   ├── Novelty.md            # Technical novelty & comparative analysis vs prior art
+│   ├── Research_Gap.md       # 7 identified literature & engineering gaps
+│   ├── Literature_Survey_Table.md # 15 surveyed papers & systems comparative matrix
+│   ├── Project_Report.md     # Complete technical and academic capstone report
+│   ├── AWS_Services.md       # AWS cloud architecture & local-first specifications
+│   ├── aws-deployment.md     # AWS deployment runbook
+│   ├── aws-integration-guide.md # Cloud architecture & IAM policies
+│   └── lambda.md             # Serverless report generator specification
+├── infra/                    # Infrastructure as Code (IaC)
+│   └── fireguard-infra.yaml  # AWS CloudFormation production template
+└── scripts/                  # Automation scripts (setup-ec2.sh, etc.)
 ```
+
+---
+
+## Complete Documentation Index
+
+For in-depth technical specifications and academic deliverables, refer to the documents in [`docs/`](docs/):
+
+1. **[Academic Abstract](docs/Abstract.md)**: Formal executive summary and academic abstract.
+2. **[Project Objectives](docs/Objectives.md)**: The eight foundational technical objectives of the platform.
+3. **[Novelty & Prior-Art Analysis](docs/Novelty.md)**: Detailed comparative analysis against existing GitHub fire projects.
+4. **[Research Gaps](docs/Research_Gap.md)**: Comprehensive breakdown of the 7 research and engineering gaps resolved by IgnisCore — Intelligent Fire Hazard Monitoring System.
+5. **[Literature Survey Table](docs/Literature_Survey_Table.md)**: Analysis of 15 foundation papers and open-source systems.
+6. **[Project Report](docs/Project_Report.md)**: Full capstone project report including architecture, ML metrics, and test results.
+7. **[AWS Cloud Architecture](docs/AWS_Services.md)**: Production-grade cloud service specifications and local-first mappings.
+8. **[AWS Deployment Runbook](docs/aws-deployment.md)**: Step-by-step production cloud deployment guide.
+9. **[AWS Integration Guide](docs/aws-integration-guide.md)**: Cloud blueprints, IAM policies, and integration details.
+10. **[CloudFormation Infrastructure Template](infra/fireguard-infra.yaml)**: Complete AWS IaC template.
 
 ---
 
@@ -258,7 +317,7 @@ See [docs/aws-integration-guide.md](docs/aws-integration-guide.md) for full impl
 
 ## Verification & Automated Testing
 
-Run the test suites locally:
+Run the automated test suites locally:
 
 ```bash
 # Backend Automated Tests (Node.js Test Runner)
@@ -275,4 +334,4 @@ npm --prefix frontend run build
 
 ## License
 
-MIT License - SmartCity Cloud Governance Project 2026.
+MIT License - IgnisCore — Intelligent Fire Hazard Monitoring System Project 2026.

@@ -1,5 +1,5 @@
 """
-FireGuard AI - Forest Fire Model Training Pipeline
+IgnisCore — Intelligent Fire Hazard Monitoring System - Forest Fire Model Training Pipeline
 """
 
 import os
@@ -126,7 +126,7 @@ def train_forest(data_path: str = DATA_PATH, output_path: str = MODEL_OUTPUT):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Train FireGuard AI Forest Fire Model")
+    parser = argparse.ArgumentParser(description="Train IgnisCore — Intelligent Fire Hazard Monitoring System Forest Fire Model")
     parser.add_argument("--data", default=DATA_PATH, help="Path to forest dataset CSV")
     parser.add_argument("--output", default=MODEL_OUTPUT, help="Path to output model file")
     args = parser.parse_args()

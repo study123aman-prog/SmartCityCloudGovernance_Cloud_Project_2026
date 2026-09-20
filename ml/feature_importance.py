@@ -1,5 +1,5 @@
 """
-FireGuard AI - Feature Importance Analysis
+IgnisCore — Intelligent Fire Hazard Monitoring System - Feature Importance Analysis
 """
 
 import os

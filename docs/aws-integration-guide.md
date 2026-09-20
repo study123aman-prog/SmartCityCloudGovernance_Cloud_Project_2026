@@ -1,8 +1,8 @@
-# FireGuard AI — AWS Cloud Integration Guide (Developer Blueprint)
+# IgnisCore — Intelligent Fire Hazard Monitoring System — AWS Cloud Integration Guide (Developer Blueprint)
 
 > [!IMPORTANT]
 > **Boundary Notice:**
-> The FireGuard AI application runs 100% locally out-of-the-box without AWS credentials, AWS CLI, or cloud infrastructure.
+> The IgnisCore — Intelligent Fire Hazard Monitoring System application runs 100% locally out-of-the-box without AWS credentials, AWS CLI, or cloud infrastructure.
 > This document serves exclusively as an architectural reference guide for when you personally choose to deploy and wire AWS managed services.
 
 ---
@@ -10,7 +10,7 @@
 ## Architecture Overview: Local Abstraction to AWS Mapping
 
 ```
-                                  FIREGUARD AI APPLICATION LAYER
+                                  IGNISCORE — INTELLIGENT FIRE HAZARD MONITORING SYSTEM APPLICATION LAYER
                                   ┌─────────────────────────────┐
                                   │   Application Business Core │
                                   └──────────────┬──────────────┘
@@ -212,7 +212,7 @@ Transmit critical hazard broadcasts to first responders via SMS and email alerts
        if (alertPayload.severity === 'CRITICAL' || alertPayload.severity === 'HIGH') {
          await this.client.send(new PublishCommand({
            TopicArn: this.topicArn,
-           Subject: `[FireGuard AI] ${alertPayload.severity}: ${alertPayload.title}`,
+           Subject: `[IgnisCore — Intelligent Fire Hazard Monitoring System] ${alertPayload.severity}: ${alertPayload.title}`,
            Message: JSON.stringify({
              alertId: saved.id,
              severity: saved.severity,

@@ -1,5 +1,5 @@
 /**
- * FireGuard AI - Abstract Repository & Service Contracts
+ * IgnisCore — Intelligent Fire Hazard Monitoring System - Abstract Repository & Service Contracts
  * 
  * These contracts define the interface specifications for data persistence,
  * telemetry ingestion, risk records, alerts, and object storage.

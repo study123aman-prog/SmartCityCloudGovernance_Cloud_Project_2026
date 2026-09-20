@@ -1,5 +1,5 @@
 """
-FireGuard AI - Forest Preprocessing Pipeline
+IgnisCore — Intelligent Fire Hazard Monitoring System - Forest Preprocessing Pipeline
 """
 
 from typing import List, Optional

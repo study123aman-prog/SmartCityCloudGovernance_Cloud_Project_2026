@@ -1,5 +1,5 @@
 /**
- * FireGuard AI - What-If Fire Simulation Engine
+ * IgnisCore — Intelligent Fire Hazard Monitoring System - What-If Fire Simulation Engine
  * 
  * Simulates discrete-time hazard propagation and dynamic evacuation routing
  * across building topologies based on user-defined environmental & origin parameters.

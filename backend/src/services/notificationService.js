@@ -1,5 +1,5 @@
 /**
- * FireGuard AI - Notification Service (Local Implementation)
+ * IgnisCore — Intelligent Fire Hazard Monitoring System - Notification Service (Local Implementation)
  * 
  * NOTE FOR FUTURE AWS INTEGRATION:
  * This local service can later be connected to AWS SNS by implementing

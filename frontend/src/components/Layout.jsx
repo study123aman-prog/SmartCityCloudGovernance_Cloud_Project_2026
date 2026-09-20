@@ -207,7 +207,7 @@ export default function Layout() {
             </button>
             <div className="hidden sm:block">
               <h1 className="text-sm font-semibold text-white tracking-wide">
-                FireGuard AI — Hazard Response System
+                IgnisCore — Intelligent Fire Hazard Monitoring System — Hazard Response System
               </h1>
               <p className="text-[11px] text-slate-400 font-mono">
                 Decoupled Architecture | High-Fidelity Local Processing

@@ -1,5 +1,5 @@
 /**
- * FireGuard AI - Canonical Building & Zone Graph Topologies
+ * IgnisCore — Intelligent Fire Hazard Monitoring System - Canonical Building & Zone Graph Topologies
  * Includes 2D spatial coordinates for floorplan rendering, zone types,
  * flammability ratings, base occupancies, and bidirectional connection graphs.
  */

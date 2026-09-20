@@ -1,5 +1,5 @@
 """
-FireGuard AI - Forest Fire Inference Engine
+IgnisCore — Intelligent Fire Hazard Monitoring System - Forest Fire Inference Engine
 """
 
 import os

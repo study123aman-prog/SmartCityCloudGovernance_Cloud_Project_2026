@@ -1,6 +1,6 @@
 # Weather Data Source Reference
 
-This directory contains meteorological observations and diurnal progression baselines utilized by the FireGuard AI Risk Fusion and Forecasting engines.
+This directory contains meteorological observations and diurnal progression baselines utilized by the IgnisCore — Intelligent Fire Hazard Monitoring System Risk Fusion and Forecasting engines.
 
 ## Telemetry Attributes
 - `temperature`: Ambient dry-bulb temperature (°C)
