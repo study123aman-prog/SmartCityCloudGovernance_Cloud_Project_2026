@@ -1,0 +1,91 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "version": "1.0.0",
+  "project": "IgnisCore — Intelligent Fire Hazard Monitoring System",
+  "description": "Dual-domain Machine Learning model architectures, feature schemas, hyperparameters, and inference service configuration.",
+  "ml_service": {
+    "host": "0.0.0.0",
+    "port": 8000,
+    "framework": "FastAPI",
+    "runtime": "Python 3.13",
+    "timeout_ms": 1500,
+    "enable_in_memory_fallback": true
+  },
+  "models": {
+    "building_structural": {
+      "model_type": "RandomForestClassifier",
+      "model_file": "building_rf_model.joblib",
+      "n_estimators": 150,
+      "max_depth": 14,
+      "min_samples_split": 3,
+      "random_state": 42,
+      "benchmark_metrics": {
+        "accuracy": 0.9998,
+        "roc_auc": 1.0000,
+        "f1_score": 0.9970,
+        "precision": 0.9982,
+        "recall": 0.9958
+      },
+      "feature_order": [
+        "temperature",
+        "optical_smoke",
+        "circuit_load",
+        "occupancy",
+        "flammability_rating",
+        "airflow_velocity"
+      ],
+      "feature_importance_top": [
+        { "feature": "optical_smoke", "weight": 0.42 },
+        { "feature": "temperature", "weight": 0.31 },
+        { "feature": "circuit_load", "weight": 0.16 },
+        { "feature": "flammability_rating", "weight": 0.07 },
+        { "feature": "airflow_velocity", "weight": 0.03 },
+        { "feature": "occupancy", "weight": 0.01 }
+      ],
+      "decision_threshold": 0.50
+    },
+    "forest_wildland": {
+      "model_type": "RandomForestClassifier",
+      "model_file": "forest_fwi_model.joblib",
+      "n_estimators": 200,
+      "max_depth": 16,
+      "min_samples_split": 4,
+      "random_state": 42,
+      "benchmark_metrics": {
+        "accuracy": 0.9283,
+        "roc_auc": 0.9812,
+        "f1_score": 0.8924,
+        "precision": 0.9140,
+        "recall": 0.8718
+      },
+      "feature_order": [
+        "Temperature",
+        "Oxygen Level",
+        "Humidity",
+        "Wind Speed",
+        "Pressure",
+        "Rainfall",
+        "FFMC",
+        "DMC",
+        "DC",
+        "ISI",
+        "BUI",
+        "FWI"
+      ],
+      "feature_importance_top": [
+        { "feature": "FWI", "weight": 0.34 },
+        { "feature": "ISI", "weight": 0.22 },
+        { "feature": "Temperature", "weight": 0.18 },
+        { "feature": "Humidity", "weight": 0.12 },
+        { "feature": "Wind Speed", "weight": 0.09 },
+        { "feature": "Rainfall", "weight": 0.05 }
+      ],
+      "decision_threshold": 0.48
+    }
+  },
+  "deterministic_fallback": {
+    "description": "Calculates normalized probability when ML microservice is offline or initializing.",
+    "building_heuristic": "(0.45 * (temp / 100.0)) + (0.45 * (smoke / 10.0)) + (0.10 * (load / 100.0))",
+    "forest_heuristic": "(0.50 * (fwi / 50.0)) + (0.30 * (temp / 45.0)) + (0.20 * (1.0 - (humidity / 100.0)))"
+  }
+}

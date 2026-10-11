@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="matrixBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#1E293B"/>
+    </linearGradient>
+
+    <linearGradient id="lowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#10B981"/>
+    </linearGradient>
+
+    <linearGradient id="medGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D97706"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+
+    <linearGradient id="highGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#EA580C"/>
+      <stop offset="100%" stop-color="#F97316"/>
+    </linearGradient>
+
+    <linearGradient id="critGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#B91C1C"/>
+      <stop offset="100%" stop-color="#EF4444"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="900" height="520" fill="url(#matrixBg)" rx="16"/>
+
+  <!-- Title Section -->
+  <text x="40" y="45" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="800" fill="#F8FAFC">
+    IGNISCORE 4-TIER FIRE HAZARD MATRIX &amp; ESCALATION PROTOCOL
+  </text>
+  <text x="40" y="70" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#94A3B8">
+    Multi-Source Fused Hazard Score: HazardScore = (0.35·Forest) + (0.20·Weather) + (0.30·Building) + (0.15·Exposure)
+  </text>
+
+  <!-- Table Header Bar -->
+  <g transform="translate(40, 95)">
+    <rect width="820" height="38" fill="#1E293B" stroke="#475569" stroke-width="1" rx="6"/>
+    <text x="20" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#94A3B8">TIER / LEVEL</text>
+    <text x="170" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#94A3B8">SCORE RANGE</text>
+    <text x="310" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#94A3B8">TELEMETRY PHENOMENA</text>
+    <text x="560" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#94A3B8">AUTOMATED SYSTEM ACTION</text>
+  </g>
+
+  <!-- ROW 1: LOW -->
+  <g transform="translate(40, 145)">
+    <rect width="820" height="78" fill="#111827" stroke="#059669" stroke-width="1.5" rx="8"/>
+    <rect x="15" y="18" width="130" height="42" fill="url(#lowGrad)" rx="6"/>
+    <text x="35" y="44" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="800" fill="#FFFFFF">LOW RISK</text>
+    <text x="175" y="44" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="700" fill="#34D399">0.0 – 39.9</text>
+    <text x="310" y="36" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#E2E8F0">Ambient: 18–26°C • Smoke &lt; 0.5%/m</text>
+    <text x="310" y="54" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#94A3B8">Normal circuit load (&lt;65%) • FWI &lt; 15</text>
+    <text x="560" y="36" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#E2E8F0">Routine 5000ms telemetry logging.</text>
+    <text x="560" y="54" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#34D399">No active alarms; nominal HVAC.</text>
+  </g>
+
+  <!-- ROW 2: MEDIUM -->
+  <g transform="translate(40, 235)">
+    <rect width="820" height="78" fill="#111827" stroke="#D97706" stroke-width="1.5" rx="8"/>
+    <rect x="15" y="18" width="130" height="42" fill="url(#medGrad)" rx="6"/>
+    <text x="25" y="44" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="800" fill="#FFFFFF">ELEVATED</text>
+    <text x="175" y="44" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="700" fill="#FBBF24">40.0 – 59.9</text>
+    <text x="310" y="36" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#E2E8F0">Thermal rise: 27–45°C • Smoke: 0.5–1.5%/m</text>
+    <text x="310" y="54" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#94A3B8">Circuit load 65–85% • Gusts &gt; 25 km/h</text>
+    <text x="560" y="36" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#E2E8F0">Increase polling to 2000ms frequency.</text>
+    <text x="560" y="54" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#FBBF24">Pre-arm topological cascade monitors.</text>
+  </g>
+
+  <!-- ROW 3: HIGH -->
+  <g transform="translate(40, 325)">
+    <rect width="820" height="78" fill="#111827" stroke="#EA580C" stroke-width="1.5" rx="8"/>
+    <rect x="15" y="18" width="130" height="42" fill="url(#highGrad)" rx="6"/>
+    <text x="25" y="44" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="800" fill="#FFFFFF">HIGH RISK</text>
+    <text x="175" y="44" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="700" fill="#FB923C">60.0 – 84.9</text>
+    <text x="310" y="36" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#E2E8F0">Heat: 45–65°C • Smoke: 1.5–3.5%/m</text>
+    <text x="310" y="54" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#94A3B8">Electrical strain &gt; 90% • Red Flag weather</text>
+    <text x="560" y="36" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#E2E8F0">Compute Dynamic Dijkstra egress routes.</text>
+    <text x="560" y="54" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#FB923C">Dispatch SNS warning to Floor Wardens.</text>
+  </g>
+
+  <!-- ROW 4: CRITICAL -->
+  <g transform="translate(40, 415)">
+    <rect width="820" height="78" fill="#111827" stroke="#EF4444" stroke-width="2" rx="8"/>
+    <rect x="15" y="18" width="130" height="42" fill="url(#critGrad)" rx="6"/>
+    <text x="30" y="44" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="800" fill="#FFFFFF">CRITICAL</text>
+    <text x="175" y="44" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="700" fill="#F87171">85.0 – 100.0</text>
+    <text x="310" y="36" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#FCA5A5">Heat &gt; 65°C • Smoke &gt; 3.5%/m (Flashover)</text>
+    <text x="310" y="54" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#94A3B8">Oxygen depletion &lt; 19.5% • Thermal cascade</text>
+    <text x="560" y="36" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#FCA5A5">Trigger audio sirens; lock compromised zones.</text>
+    <text x="560" y="54" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#EF4444">911 Dispatch webhook &amp; campus evacuation.</text>
+  </g>
+</svg>

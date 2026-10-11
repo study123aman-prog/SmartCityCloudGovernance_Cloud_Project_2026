@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="130" height="28" viewBox="0 0 130 28">
+  <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#1E293B"/>
+    <stop offset="100%" stop-color="#0F172A"/>
+  </linearGradient>
+  <rect width="130" height="28" rx="6" fill="url(#bg)" stroke="#334155" stroke-width="1"/>
+  <rect x="70" width="60" height="28" rx="6" fill="#0EA5E9"/>
+  <rect x="66" width="8" height="28" fill="#0EA5E9"/>
+  <text x="12" y="18" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#94A3B8">LICENSE</text>
+  <text x="78" y="18" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#FFFFFF">MIT</text>
+</svg>

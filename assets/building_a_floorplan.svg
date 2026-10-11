@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 480" width="100%" height="100%">
+  <defs>
+    <!-- Background styling -->
+    <linearGradient id="bldgBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#1E293B"/>
+    </linearGradient>
+
+    <!-- Blueprint Grid -->
+    <pattern id="cadGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#334155" stroke-width="0.5" stroke-opacity="0.4"/>
+    </pattern>
+
+    <!-- Zone Styles -->
+    <linearGradient id="elecGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7F1D1D" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#450A0A" stop-opacity="0.8"/>
+    </linearGradient>
+
+    <linearGradient id="labGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E3A8A" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#172554" stop-opacity="0.7"/>
+    </linearGradient>
+
+    <linearGradient id="corridorGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#334155" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#1E293B" stop-opacity="0.5"/>
+    </linearGradient>
+
+    <linearGradient id="storageGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#78350F" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#451A03" stop-opacity="0.8"/>
+    </linearGradient>
+
+    <linearGradient id="exitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#064E3B" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#022C22" stop-opacity="0.8"/>
+    </linearGradient>
+
+    <filter id="exitGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="680" height="480" fill="url(#bldgBg)" rx="12"/>
+  <rect width="680" height="480" fill="url(#cadGrid)" rx="12"/>
+
+  <!-- Building Header -->
+  <text x="50" y="32" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="700" fill="#F8FAFC">
+    BUILDING A — ADVANCED RESEARCH FACILITY (BLDG-A)
+  </text>
+  <text x="490" y="32" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#94A3B8">
+    North Science Sector • 3,200 m²
+  </text>
+
+  <!-- Exterior Building Envelope Perimeter -->
+  <rect x="40" y="42" width="560" height="370" fill="none" stroke="#64748B" stroke-width="3" stroke-dasharray="6 3" rx="4"/>
+
+  <!-- ZONE 1: Electrical Room (x:50, y:50, w:140, h:110) -->
+  <g id="zone_bldg_a_elec">
+    <rect x="50" y="50" width="140" height="110" fill="url(#elecGrad)" stroke="#EF4444" stroke-width="2" rx="4"/>
+    <text x="62" y="74" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#FCA5A5">ELECTRICAL ROOM</text>
+    <text x="62" y="92" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#CBD5E1">ID: bldg_a_elec</text>
+    <rect x="62" y="105" width="70" height="18" rx="9" fill="#991B1B"/>
+    <text x="70" y="118" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700" fill="#FEE2E2">FLAM: 4.8 / 5</text>
+    <circle cx="165" cy="70" r="7" fill="#EF4444"/>
+    <text x="162" y="73" font-size="9" fill="#FFF">⚡</text>
+  </g>
+
+  <!-- ZONE 2: Lab 1 Chemical (x:210, y:50, w:180, h:110) -->
+  <g id="zone_bldg_a_lab1">
+    <rect x="210" y="50" width="180" height="110" fill="url(#labGrad)" stroke="#3B82F6" stroke-width="2" rx="4"/>
+    <text x="222" y="74" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#93C5FD">LAB 1 (CHEMICAL)</text>
+    <text x="222" y="92" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#CBD5E1">ID: bldg_a_lab1 • Max: 25</text>
+    <rect x="222" y="105" width="70" height="18" rx="9" fill="#1E40AF"/>
+    <text x="230" y="118" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700" fill="#DBEAFE">FLAM: 4.2 / 5</text>
+    <circle cx="365" cy="70" r="7" fill="#3B82F6"/>
+    <text x="361" y="73" font-size="9" fill="#FFF">🧪</text>
+  </g>
+
+  <!-- ZONE 3: Lab 2 Optics & Laser (x:410, y:50, w:180, h:110) -->
+  <g id="zone_bldg_a_lab2">
+    <rect x="410" y="50" width="180" height="110" fill="url(#labGrad)" stroke="#38BDF8" stroke-width="2" rx="4"/>
+    <text x="422" y="74" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#BAE6FD">LAB 2 (OPTICS &amp; LASER)</text>
+    <text x="422" y="92" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#CBD5E1">ID: bldg_a_lab2 • Max: 20</text>
+    <rect x="422" y="105" width="70" height="18" rx="9" fill="#0369A1"/>
+    <text x="430" y="118" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700" fill="#E0F2FE">FLAM: 3.5 / 5</text>
+    <circle cx="565" cy="70" r="7" fill="#38BDF8"/>
+    <text x="561" y="73" font-size="9" fill="#FFF">🔬</text>
+  </g>
+
+  <!-- ZONE 4: Central Corridor (x:50, y:180, w:540, h:80) -->
+  <g id="zone_bldg_a_corridor">
+    <rect x="50" y="180" width="540" height="80" fill="url(#corridorGrad)" stroke="#64748B" stroke-width="2" rx="4"/>
+    <text x="235" y="215" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#E2E8F0">CENTRAL EVACUATION CORRIDOR</text>
+    <text x="255" y="235" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94A3B8">ID: bldg_a_corridor • Primary Spine • Flam: 1.8</text>
+    <!-- Egress Guide Arrows inside corridor -->
+    <path d="M 120 220 L 80 220 M 90 215 L 80 220 L 90 225" stroke="#10B981" stroke-width="2.5" fill="none"/>
+    <path d="M 520 220 L 560 220 M 550 215 L 560 220 L 550 225" stroke="#10B981" stroke-width="2.5" fill="none"/>
+  </g>
+
+  <!-- ZONE 5: Chemical Storage (x:50, y:280, w:180, h:120) -->
+  <g id="zone_bldg_a_storage">
+    <rect x="50" y="280" width="180" height="120" fill="url(#storageGrad)" stroke="#F59E0B" stroke-width="2" rx="4"/>
+    <text x="62" y="306" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#FDE68A">CHEMICAL STORAGE</text>
+    <text x="62" y="324" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#CBD5E1">ID: bldg_a_storage • Flammable</text>
+    <rect x="62" y="338" width="70" height="18" rx="9" fill="#B45309"/>
+    <text x="70" y="351" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700" fill="#FEF3C7">FLAM: 4.9 / 5</text>
+    <circle cx="205" cy="302" r="7" fill="#F59E0B"/>
+    <text x="201" y="305" font-size="9" fill="#FFF">⚠️</text>
+  </g>
+
+  <!-- ZONE 6: Exit A (West Stairwell) (x:250, y:280, w:160, h:120) -->
+  <g id="zone_bldg_a_exit_a">
+    <rect x="250" y="280" width="160" height="120" fill="url(#exitGrad)" stroke="#10B981" stroke-width="3" rx="4" filter="url(#exitGlow)"/>
+    <text x="270" y="315" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="800" fill="#A7F3D0">EXIT A (WEST)</text>
+    <text x="270" y="335" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#6EE7B7">Stairwell Egress Point</text>
+    <text x="270" y="355" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#CBD5E1">Capacity: 100 Occupants</text>
+    <rect x="270" y="365" width="80" height="20" rx="4" fill="#047857"/>
+    <text x="282" y="379" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#ECFDF5">SAFE EXIT</text>
+  </g>
+
+  <!-- ZONE 7: Exit B (East Main Entrance) (x:430, y:280, w:160, h:120) -->
+  <g id="zone_bldg_a_exit_b">
+    <rect x="430" y="280" width="160" height="120" fill="url(#exitGrad)" stroke="#10B981" stroke-width="3" rx="4" filter="url(#exitGlow)"/>
+    <text x="450" y="315" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="800" fill="#A7F3D0">EXIT B (EAST)</text>
+    <text x="450" y="335" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#6EE7B7">Main Entrance Concourse</text>
+    <text x="450" y="355" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#CBD5E1">Capacity: 150 Occupants</text>
+    <rect x="450" y="365" width="80" height="20" rx="4" fill="#047857"/>
+    <text x="462" y="379" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#ECFDF5">SAFE EXIT</text>
+  </g>
+
+  <!-- Doorway Openings / Connections (Representing graph edges) -->
+  <rect x="110" y="160" width="20" height="20" fill="#475569" stroke="#94A3B8" stroke-width="1"/>
+  <rect x="290" y="160" width="20" height="20" fill="#475569" stroke="#94A3B8" stroke-width="1"/>
+  <rect x="490" y="160" width="20" height="20" fill="#475569" stroke="#94A3B8" stroke-width="1"/>
+  <rect x="130" y="260" width="20" height="20" fill="#475569" stroke="#94A3B8" stroke-width="1"/>
+  <rect x="320" y="260" width="20" height="20" fill="#475569" stroke="#94A3B8" stroke-width="1"/>
+  <rect x="500" y="260" width="20" height="20" fill="#475569" stroke="#94A3B8" stroke-width="1"/>
+
+  <!-- Legend Bar -->
+  <g transform="translate(50, 435)">
+    <rect x="0" y="0" width="12" height="12" fill="#EF4444" rx="2"/>
+    <text x="18" y="10" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#CBD5E1">High Electrical / Heat</text>
+
+    <rect x="150" y="0" width="12" height="12" fill="#F59E0B" rx="2"/>
+    <text x="168" y="10" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#CBD5E1">Flammable Storage</text>
+
+    <rect x="290" y="0" width="12" height="12" fill="#3B82F6" rx="2"/>
+    <text x="308" y="10" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#CBD5E1">Laboratory / Sensor Zone</text>
+
+    <rect x="450" y="0" width="12" height="12" fill="#10B981" rx="2"/>
+    <text x="468" y="10" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#CBD5E1">Emergency Egress Exit</text>
+  </g>
+</svg>
