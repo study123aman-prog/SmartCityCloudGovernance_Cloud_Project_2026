@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: "📖 IgnisCore Architecture & Deployment Documentation"
+    url: "https://github.com/study123aman-prog/SmartCityCloudGovernance_Cloud_Project_2026#readme"
+    about: "Review system architecture, sensor mathematical models, and setup guides before opening an issue."
+  - name: "💬 Community & Governance Discussions"
+    url: "https://github.com/study123aman-prog/SmartCityCloudGovernance_Cloud_Project_2026/discussions"
+    about: "Discuss algorithms, edge-cloud governance, research proposals, or ask general questions."

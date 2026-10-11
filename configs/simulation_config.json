@@ -1,0 +1,228 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "version": "1.0.0",
+  "project": "IgnisCore — Intelligent Fire Hazard Monitoring System",
+  "description": "Simulation configuration for Virtual Sensor Telemetry Engine, sensor physics baselines, noise distributions, and hazard anomaly scenarios.",
+  "engine": {
+    "default_interval_ms": 5000,
+    "min_interval_ms": 1000,
+    "max_interval_ms": 60000,
+    "jitter_ratio": 0.05,
+    "api_endpoint": "http://localhost:5001/api/telemetry",
+    "telemetry_protocol": "HTTP_REST",
+    "mqtt_topic_template": "fireguard/telemetry/{building_id}/{zone_id}"
+  },
+  "sensor_physics": {
+    "temperature": {
+      "unit": "celsius",
+      "normal_min": 18.0,
+      "normal_max": 27.0,
+      "noise_std_dev": 0.35,
+      "warning_threshold": 45.0,
+      "critical_threshold": 65.0
+    },
+    "optical_smoke": {
+      "unit": "obscuration_pct_per_m",
+      "normal_min": 0.05,
+      "normal_max": 0.40,
+      "noise_std_dev": 0.04,
+      "warning_threshold": 1.5,
+      "critical_threshold": 3.5
+    },
+    "circuit_load": {
+      "unit": "percentage",
+      "normal_min": 25.0,
+      "normal_max": 65.0,
+      "noise_std_dev": 1.5,
+      "warning_threshold": 85.0,
+      "critical_threshold": 95.0
+    },
+    "atmospheric_oxygen": {
+      "unit": "percentage",
+      "normal_baseline": 20.95,
+      "noise_std_dev": 0.08,
+      "depletion_threshold": 19.5
+    }
+  },
+  "zone_baselines": [
+    {
+      "zone_id": "bldg_a_elec",
+      "building_id": "building_a",
+      "base_temperature": 28.0,
+      "base_smoke": 0.8,
+      "base_circuit_load": 88.0,
+      "base_occupancy": 2
+    },
+    {
+      "zone_id": "bldg_a_lab1",
+      "building_id": "building_a",
+      "base_temperature": 23.0,
+      "base_smoke": 0.5,
+      "base_circuit_load": 52.0,
+      "base_occupancy": 12
+    },
+    {
+      "zone_id": "bldg_a_lab2",
+      "building_id": "building_a",
+      "base_temperature": 22.5,
+      "base_smoke": 0.3,
+      "base_circuit_load": 48.0,
+      "base_occupancy": 8
+    },
+    {
+      "zone_id": "bldg_a_corridor",
+      "building_id": "building_a",
+      "base_temperature": 21.8,
+      "base_smoke": 0.2,
+      "base_circuit_load": 30.0,
+      "base_occupancy": 5
+    },
+    {
+      "zone_id": "bldg_a_storage",
+      "building_id": "building_a",
+      "base_temperature": 20.5,
+      "base_smoke": 0.4,
+      "base_circuit_load": 25.0,
+      "base_occupancy": 1
+    },
+    {
+      "zone_id": "bldg_b_server",
+      "building_id": "building_b",
+      "base_temperature": 19.5,
+      "base_smoke": 0.1,
+      "base_circuit_load": 86.0,
+      "base_occupancy": 3
+    },
+    {
+      "zone_id": "bldg_b_class1",
+      "building_id": "building_b",
+      "base_temperature": 22.0,
+      "base_smoke": 0.3,
+      "base_circuit_load": 40.0,
+      "base_occupancy": 65
+    },
+    {
+      "zone_id": "bldg_b_class2",
+      "building_id": "building_b",
+      "base_temperature": 22.0,
+      "base_smoke": 0.3,
+      "base_circuit_load": 38.0,
+      "base_occupancy": 45
+    },
+    {
+      "zone_id": "bldg_b_corridor",
+      "building_id": "building_b",
+      "base_temperature": 21.0,
+      "base_smoke": 0.2,
+      "base_circuit_load": 35.0,
+      "base_occupancy": 15
+    },
+    {
+      "zone_id": "bldg_b_storage",
+      "building_id": "building_b",
+      "base_temperature": 20.0,
+      "base_smoke": 0.2,
+      "base_circuit_load": 22.0,
+      "base_occupancy": 1
+    },
+    {
+      "zone_id": "bldg_c_kitchen",
+      "building_id": "building_c",
+      "base_temperature": 31.0,
+      "base_smoke": 1.4,
+      "base_circuit_load": 72.0,
+      "base_occupancy": 8
+    },
+    {
+      "zone_id": "bldg_c_office",
+      "building_id": "building_c",
+      "base_temperature": 22.2,
+      "base_smoke": 0.2,
+      "base_circuit_load": 45.0,
+      "base_occupancy": 28
+    },
+    {
+      "zone_id": "bldg_c_corridor",
+      "building_id": "building_c",
+      "base_temperature": 21.5,
+      "base_smoke": 0.2,
+      "base_circuit_load": 32.0,
+      "base_occupancy": 4
+    },
+    {
+      "zone_id": "bldg_c_storage",
+      "building_id": "building_c",
+      "base_temperature": 20.5,
+      "base_smoke": 0.3,
+      "base_circuit_load": 20.0,
+      "base_occupancy": 2
+    }
+  ],
+  "meteorological_simulation": {
+    "station_id": "MET-STATION-NORTH-01",
+    "base_temperature_c": 25.4,
+    "base_humidity_pct": 38.5,
+    "base_wind_speed_kmh": 14.2,
+    "base_pressure_hpa": 1012.8,
+    "base_rainfall_mm": 0.0,
+    "canadian_fwi_indices": {
+      "ffmc": 88.4,
+      "dmc": 42.1,
+      "dc": 312.0,
+      "isi": 9.6,
+      "bui": 62.3,
+      "fwi": 24.8
+    },
+    "diurnal_cycle": {
+      "peak_temp_hour": 15,
+      "trough_temp_hour": 5,
+      "temp_amplitude_c": 7.5,
+      "humidity_inverse_scale": 1.2
+    }
+  },
+  "anomaly_scenarios": [
+    {
+      "id": "scenario_electrical_runaway",
+      "title": "Building A Electrical Overheat & Arc Fault",
+      "target_zone": "bldg_a_elec",
+      "duration_steps": 12,
+      "progression_profile": "exponential",
+      "peak_temp": 88.0,
+      "peak_smoke": 6.8,
+      "peak_load": 99.2,
+      "cascade_delay_steps": 3
+    },
+    {
+      "id": "scenario_server_thermal_runaway",
+      "title": "Building B High-Density Server Rack Overheat",
+      "target_zone": "bldg_b_server",
+      "duration_steps": 10,
+      "progression_profile": "linear",
+      "peak_temp": 79.5,
+      "peak_smoke": 4.9,
+      "peak_load": 97.5,
+      "cascade_delay_steps": 4
+    },
+    {
+      "id": "scenario_kitchen_grease_fire",
+      "title": "Building C Commercial Kitchen Deep-Fryer Flashover",
+      "target_zone": "bldg_c_kitchen",
+      "duration_steps": 8,
+      "progression_profile": "flashover",
+      "peak_temp": 95.0,
+      "peak_smoke": 8.5,
+      "peak_load": 80.0,
+      "cascade_delay_steps": 2
+    },
+    {
+      "id": "scenario_wildfire_redflag",
+      "title": "Regional Red Flag Wildfire Weather Surge",
+      "target_zone": "wildland_perimeter",
+      "duration_steps": 15,
+      "progression_profile": "stepped",
+      "wind_speed_gust_kmh": 48.0,
+      "humidity_drop_pct": 14.0,
+      "fwi_spike": 46.5
+    }
+  ]
+}

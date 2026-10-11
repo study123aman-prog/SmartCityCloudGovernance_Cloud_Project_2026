@@ -1,0 +1,100 @@
+name: "🐛 Bug Report"
+description: Report an issue or unexpected behavior in IgnisCore
+title: "[BUG]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting an issue in **IgnisCore — Intelligent Fire Hazard Monitoring System**!
+        Please fill out the sections below so we can diagnose and resolve the problem quickly.
+  - type: dropdown
+    id: component
+    attributes:
+      label: Affected Component
+      description: Which sub-system is experiencing this issue?
+      options:
+        - "Backend (Node.js / Express / Dijkstra Router)"
+        - "Frontend (React 19 / Vite / Tailwind / Leaflet)"
+        - "ML Service (FastAPI / Scikit-Learn / PyTorch)"
+        - "Virtual Sensor Simulator (Multi-Zone Telemetry)"
+        - "Cloud Governance & Configs (AWS IoT / Lambda / DynamoDB)"
+        - "Docker Compose / Local Environment"
+        - "Documentation / Assets"
+    validations:
+      required: true
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity / Impact
+      options:
+        - "Critical (System crash, simulation failure, or routing error)"
+        - "High (Major feature broken, inaccurate risk calculation)"
+        - "Medium (UI rendering bug, minor API error, transient state)"
+        - "Low (Cosmetic, typo, minor performance glitch)"
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: A clear and concise description of what the bug is.
+      placeholder: Describe what happened...
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: Exact steps to reproduce the behavior.
+      placeholder: |
+        1. Start the stack with `docker compose up` or `npm run dev`
+        2. Navigate to '/simulation'
+        3. Trigger hazard origin on 'Building A - Zone 3'
+        4. See error...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+      placeholder: The dynamic Dijkstra routing engine should have recalculated safe evacuation paths...
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: What actually occurred?
+      placeholder: The calculation hung or returned status code 500...
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant Logs or Screenshots
+      description: Paste terminal output, browser console errors, or drag-and-drop screenshots here.
+      render: shell
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment & Versions
+      description: Provide details about your local setup.
+      value: |
+        - OS: [e.g. macOS 15, Ubuntu 22.04, Windows 11]
+        - Node.js Version: [e.g. 20.x, 22.x]
+        - Python Version: [e.g. 3.11]
+        - Browser: [e.g. Chrome 124, Firefox 125, Safari 18]
+        - Docker Version: [e.g. 27.x or N/A]
+    validations:
+      required: false
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Confirmation
+      options:
+        - label: I have verified this issue is not already reported in existing issues or discussions.
+          required: true
+        - label: I have provided all relevant configuration parameters and reproduction steps.
+          required: true

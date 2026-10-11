@@ -1,0 +1,76 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "version": "1.0.0",
+  "project": "IgnisCore — Intelligent Fire Hazard Monitoring System",
+  "description": "Emergency incident alert dispatch rules, multi-channel broadcast pathways, escalation hierarchy, and suppression parameters.",
+  "thresholds": {
+    "warning_score": 60.0,
+    "critical_score": 85.0,
+    "cooldown_period_seconds": 180,
+    "max_active_alerts_per_building": 10
+  },
+  "channels": {
+    "local_ui": {
+      "enabled": true,
+      "websocket_broadcast": true,
+      "audio_alarm_tone": "emergency-pulsed-siren"
+    },
+    "aws_sns": {
+      "enabled": false,
+      "topic_arn": "arn:aws:sns:us-east-1:123456789012:fireguard-emergency-alerts",
+      "publish_on_level": ["HIGH", "CRITICAL"]
+    },
+    "email": {
+      "enabled": true,
+      "smtp_host": "localhost",
+      "smtp_port": 1025,
+      "recipients": {
+        "warning": ["safety-warden@campus.internal"],
+        "critical": ["incident-commander@campus.internal", "first-responders@city.gov"]
+      }
+    },
+    "sms": {
+      "enabled": false,
+      "provider": "AWS_SNS_SMS",
+      "urgent_only": true,
+      "phone_numbers": ["+15550192834"]
+    },
+    "webhook": {
+      "enabled": true,
+      "endpoint_url": "http://localhost:5001/api/alerts/webhook",
+      "retry_attempts": 3,
+      "timeout_ms": 3000
+    }
+  },
+  "escalation_matrix": [
+    {
+      "step": 1,
+      "role": "Zone Floor Operator",
+      "response_window_minutes": 2,
+      "action": "Immediate local inspection of sensor telemetry & verify isolation dampers."
+    },
+    {
+      "step": 2,
+      "role": "Floor Safety Warden",
+      "response_window_minutes": 5,
+      "action": "Initiate orderly staging towards primary Exit A / Exit B stairwells."
+    },
+    {
+      "step": 3,
+      "role": "Incident Commander",
+      "response_window_minutes": 10,
+      "action": "Broadcast campus-wide evacuation advisory and inspect dynamic Dijkstra path status."
+    },
+    {
+      "step": 4,
+      "role": "Municipal Fire & Rescue Dispatch",
+      "response_window_minutes": 0,
+      "action": "Immediate 911 dispatch hook upon CRITICAL score or multiple zone cascade detection."
+    }
+  ],
+  "suppression": {
+    "enable_flapping_filter": true,
+    "min_state_dwell_time_seconds": 15,
+    "maintenance_mode_zones": []
+  }
+}

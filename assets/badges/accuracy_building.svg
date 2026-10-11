@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="190" height="28" viewBox="0 0 190 28">
+  <linearGradient id="bg" x1="0" y1="0" x2="0" y2="100%">
+    <stop offset="0" stop-color="#1E293B"/>
+    <stop offset="100%" stop-color="#0F172A"/>
+  </linearGradient>
+  <rect width="190" height="28" rx="6" fill="url(#bg)" stroke="#334155" stroke-width="1"/>
+  <rect x="120" width="70" height="28" rx="6" fill="#10B981"/>
+  <rect x="116" width="8" height="28" fill="#10B981"/>
+  <text x="12" y="18" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#94A3B8">BUILDING ML</text>
+  <text x="128" y="18" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#FFFFFF">99.98% ACC</text>
+</svg>

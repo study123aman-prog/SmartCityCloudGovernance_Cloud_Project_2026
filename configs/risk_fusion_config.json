@@ -1,0 +1,105 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "version": "1.0.0",
+  "project": "IgnisCore — Intelligent Fire Hazard Monitoring System",
+  "description": "Multi-Source Risk Fusion Engine configuration detailing weights, category boundaries, normalization parameters, and explainable rule heuristics.",
+  "fusion_formula": "OverallHazardScore = (w_forest * ForestRisk) + (w_weather * WeatherRisk) + (w_building * BuildingRisk) + (w_exposure * ExposureRisk)",
+  "weights": {
+    "forest": {
+      "default": 0.35,
+      "min": 0.0,
+      "max": 1.0,
+      "description": "Weight of Canadian FWI and wildland satellite/sensor ignition probability."
+    },
+    "weather": {
+      "default": 0.20,
+      "min": 0.0,
+      "max": 1.0,
+      "description": "Weight of atmospheric vector (relative humidity, wind velocity, ambient heat, pressure gradient)."
+    },
+    "building": {
+      "default": 0.30,
+      "min": 0.0,
+      "max": 1.0,
+      "description": "Weight of indoor structural sensors (optical smoke obscuration, thermal sensors, electrical circuit load)."
+    },
+    "exposure": {
+      "default": 0.15,
+      "min": 0.0,
+      "max": 1.0,
+      "description": "Weight of spatial vulnerability, flammability index of materials, occupant density, and egress distance."
+    }
+  },
+  "risk_classification": {
+    "levels": [
+      {
+        "id": "LOW",
+        "label": "Low Risk (Normal)",
+        "min_score": 0.0,
+        "max_score": 39.99,
+        "color_hex": "#10B981",
+        "action_required": "Routine environmental telemetry sampling; standard HVAC operation.",
+        "dispatch_priority": "P4_MONITORING"
+      },
+      {
+        "id": "MEDIUM",
+        "label": "Moderate / Elevated Risk",
+        "min_score": 40.0,
+        "max_score": 59.99,
+        "color_hex": "#F59E0B",
+        "action_required": "Elevate telemetry polling frequency to 2000ms; verify fire dampers and corridor sensors.",
+        "dispatch_priority": "P3_WATCH"
+      },
+      {
+        "id": "HIGH",
+        "label": "High Fire Danger",
+        "min_score": 60.0,
+        "max_score": 84.99,
+        "color_hex": "#F97316",
+        "action_required": "Automated pre-alarm warning to safety wardens; calculate dynamic Dijkstra egress routes.",
+        "dispatch_priority": "P2_WARNING"
+      },
+      {
+        "id": "CRITICAL",
+        "label": "Critical Hazard / Flashover Risk",
+        "min_score": 85.0,
+        "max_score": 100.0,
+        "color_hex": "#EF4444",
+        "action_required": "Trigger building-wide audio-visual alarms; dispatch municipal first responders; engage dynamic evacuation routing.",
+        "dispatch_priority": "P1_EMERGENCY"
+      }
+    ]
+  },
+  "normalization_bounds": {
+    "temperature_c": { "min": 10.0, "max": 100.0 },
+    "smoke_obscuration_pct": { "min": 0.0, "max": 10.0 },
+    "circuit_load_pct": { "min": 0.0, "max": 100.0 },
+    "fwi_score": { "min": 0.0, "max": 50.0 },
+    "wind_speed_kmh": { "min": 0.0, "max": 80.0 },
+    "relative_humidity_pct": { "min": 10.0, "max": 100.0 }
+  },
+  "deterministic_rule_engine": {
+    "enabled": true,
+    "confidence_comparison": true,
+    "rules": [
+      {
+        "id": "RULE_ELEC_OVERLOAD",
+        "condition": "circuit_load > 92.0 AND temperature > 55.0",
+        "hazard_bump": 35.0,
+        "rationale": "High electrical draw coupled with elevated thermal gradient indicates imminent insulation failure."
+      },
+      {
+        "id": "RULE_SMOKE_FLASH",
+        "condition": "optical_smoke > 3.0",
+        "hazard_bump": 50.0,
+        "rationale": "High optical obscuration indicates smoldering or free-burning combustion."
+      },
+      {
+        "id": "RULE_FWI_EXTREME",
+        "condition": "fwi > 38.0 AND wind_speed > 35.0",
+        "hazard_bump": 40.0,
+        "rationale": "Extreme Canadian FWI combined with gale-force winds creates uncontrollable fire propagation potential."
+      }
+    ]
+  }
+}

@@ -1,0 +1,43 @@
+name: "🏢 Model or Topology Proposal"
+description: Propose a new building floorplan, hazard propagation rule, or ML training dataset
+title: "[TOPOLOGY/MODEL]: "
+labels: ["topology", "model", "enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template to suggest additions to **facility topologies**, **zone graphs**, **alert thresholds**, or **dual-domain ML models**.
+  - type: dropdown
+    id: proposal_type
+    attributes:
+      label: Proposal Type
+      options:
+        - "New Facility Topology / Floorplan (e.g. Building D, Industrial Complex)"
+        - "Zone Edge / Adjacency Weight Update"
+        - "Virtual Sensor Spec / Anomaly Distribution Rule"
+        - "Machine Learning Model Architecture / Feature Weights"
+        - "Alert Escalation Rule or Threshold Calibration"
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary & Justification
+      description: What is being added or adjusted and why?
+      placeholder: Introduce Building D (Chemical Lab) with specialized VOC and thermal threshold parameters...
+    validations:
+      required: true
+  - type: textarea
+    id: parameters
+    attributes:
+      label: Proposed Configurations / Parameters
+      description: Provide the relevant JSON schema updates, node definitions, or weights.
+      render: json
+      placeholder: |
+        {
+          "facility_id": "building_d",
+          "name": "Chemical Laboratory Complex",
+          "zones": []
+        }
+    validations:
+      required: true
