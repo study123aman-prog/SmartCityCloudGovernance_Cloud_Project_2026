@@ -1,4 +1,4 @@
-# Literature Survey & Comparative Analysis
+# Reference Projects
 
 ## Project Title
 **IgnisCore — Intelligent Fire Hazard Monitoring System: Cloud-Native Multi-Zone Fire Hazard Intelligence, Graph-Based Risk Propagation & Dynamic Evacuation Decision Support System**
@@ -18,7 +18,7 @@ Each entry details the methodology, dataset/platform used, key advantages, inher
 
 ---
 
-### Literature Survey Table
+### Reference Project Table
 
 | No. | Reference / System | Method | Dataset / Platform | Key Advantages | Critical Limitations | Identified Research Gap & IgnisCore — Intelligent Fire Hazard Monitoring System Solution |
 | :---: | :--- | :--- | :--- | :--- | :--- | :--- |

@@ -10,7 +10,7 @@ This directory contains the formal research deliverables, architectural specific
 - **[Objectives](Objectives.md)**: Eight core technical and research objectives defining the virtual telemetry simulator, dual-domain ML classifiers, risk fusion engine, graph cascade model, dynamic evacuation pathfinding, interactive What-If simulation, AWS cloud architecture, and web command center.
 - **[Novelty & Prior-Art Analysis](Novelty.md)**: Rigorous comparative analysis contrasting IgnisCore — Intelligent Fire Hazard Monitoring System against conventional GitHub projects (`GrumpyKit10`, `FireShield360`, `boldmonk89`, `Forest-Sentinel`), formalizing the paradigm shift from reactive hardware alarms to predictive cloud intelligence, and detailing six core technical innovations.
 - **[Research Gaps](Research_Gap.md)**: Detailed examination of seven fundamental research and engineering gaps in current fire safety literature and open-source systems, showing how IgnisCore — Intelligent Fire Hazard Monitoring System resolves each gap.
-- **[Literature Survey Table](Literature_Survey_Table.md)**: Comparative matrix of 15 foundation research papers and open-source projects covering methods, platforms, advantages, limitations, and identified research gaps.
+- **[Literature Survey Table](Literature-Survey-Table.md)**: Comparative matrix of 15 foundation research papers and open-source projects covering methods, platforms, advantages, limitations, and identified research gaps.
 - **[Project Report](Project_Report.md)**: Comprehensive repository-based technical and academic report detailing executive summary, system architecture, ML models, algorithmic propagation and routing, What-If simulation, AWS cloud integration, and verification results.
 
 ---
