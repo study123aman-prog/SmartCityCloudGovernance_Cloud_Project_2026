@@ -1,0 +1,53 @@
+name: "✨ Feature Request"
+description: Propose a new feature, algorithm enhancement, or architectural improvement
+title: "[FEATURE]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for proposing an enhancement to **IgnisCore**!
+        Help us understand the use case and design for your idea.
+  - type: dropdown
+    id: component
+    attributes:
+      label: Target Component
+      description: Which part of the platform does this feature target?
+      options:
+        - "Dynamic Evacuation & Dijkstra Pathfinder"
+        - "Graph Hazard Propagation Engine"
+        - "Multi-Source Risk Fusion Engine"
+        - "Dual-Domain ML Models (Forest FWI / Building RF)"
+        - "Virtual Sensor Telemetry Engine"
+        - "Frontend Dashboard & Floorplan Visualization"
+        - "Cloud Governance & Serverless Ingestion (AWS / Local)"
+        - "Simulation Sandbox & Time-Step Playback"
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Statement
+      description: Is your feature request related to a specific problem or gap?
+      placeholder: I am always frustrated when... / The current hazard propagation does not account for...
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution / Architectural Design
+      description: Describe the solution you'd like to see implemented.
+      placeholder: Implement an adaptive smoke-diffusion weighting in Dijkstra graph edges...
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Any alternative solutions or workarounds you considered?
+      placeholder: We could also compute static evacuation routes beforehand, but...
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Additional Context
+      description: Add any relevant mockups, diagrams, formulas, or external references.
